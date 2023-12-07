@@ -11,7 +11,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args" : ["C:\\Users\\41764\\Proton Drive\\matungus\\My files\\UZH\\1. Semester\\PCL1\\pcl1-course-project-master\\Books\\DrJekyllAndMrHyde.txt"]
+            "args" : ["C:\\Users\\41764\\Documents\\GitHub\\project_pcl_mturra_mkessle\\Books\\DrJekyllAndMrHyde.txt"]
         }
     ]
 }
