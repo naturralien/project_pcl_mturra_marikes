@@ -152,6 +152,27 @@ def split_book_by_chapter(cleaned_text, book_title):
     each chapter in a separate file in a folder named after the book title.
     """
     # Add your code here to split the cleaned_text into chapters
+    #splits text at linebreak
+    segments = cleaned_text.split("\r\n")
+    #tuple of chapter titles
+    chapter_markers = ("Letter", "Chapter")
+    #List of content list headers
+    content_headers = ["CONTENTS"]
+    #set of chapters
+    chapter_set = set()
+    #bool the identify if content header was found
+    contentlist_found = False
+    #iterate through book
+    for segment in segments:
+        #chech if book segment is equal to content header
+        if (segment in content_headers):
+            #set contentlist bool to True and continue with next iteration
+            contentlist_found = True
+            continue
+        #add chapter to set if segment start is found in chapter name set
+        if contentlist_found and segment.startswith(chapter_markers):
+            chapter_set.add(segment)
+    print(chapter_set)
     return
     # and save each chapter in a separate file
     pass
@@ -186,6 +207,6 @@ def main():
     book_folder_path = create_book_folder(os.path.dirname(os.path.abspath(__file__)), book_title)
     write_text_to_file(booktext, book_folder_path)
     # 4. Split the text into chapters and save them in the book title folder under a subfolder named 'chapters'
-
+    split_book_by_chapter(booktext, book_title)
 if __name__ == '__main__':
     main()
