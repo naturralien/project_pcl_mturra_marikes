@@ -174,8 +174,6 @@ def split_book_by_chapter(cleaned_text, book_title):
             chapter_set.add(segment)
     print(chapter_set)
     return
-    # and save each chapter in a separate file
-    pass
 
 def create_book_folder(path, bookname) -> str:
     if len(path) < 1:
@@ -208,5 +206,6 @@ def main():
     write_text_to_file(booktext, book_folder_path)
     # 4. Split the text into chapters and save them in the book title folder under a subfolder named 'chapters'
     split_book_by_chapter(booktext, book_title)
+
 if __name__ == '__main__':
     main()
