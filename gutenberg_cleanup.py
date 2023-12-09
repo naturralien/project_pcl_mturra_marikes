@@ -161,6 +161,9 @@ def split_book_by_chapter(cleaned_text, book_title):
     # Add your code here to split the cleaned_text into chapters
     #splits text at linebreak
     segments = cleaned_text.split("\r\n")
+    #removes linebreak from end of each segment
+    #segments = [segment.rstrip("\r\n") for segment in segments]
+    #segments = segments.rstrip("\n")
     #tuple of chapter titles
     chapter_markers = ("Letter", "Chapter")
     #List of content list headers
@@ -192,24 +195,53 @@ def split_book_by_chapter(cleaned_text, book_title):
     return
 
 def create_book_folder(path, bookname) -> str:
+    """
+    Function that takes a path and a bookname as arguments and creates a folder named after the bookname
+    """
+    # takes path from first command line argument
     if len(path) < 1:
         path = sys.argv[0]
+    # ensures that path ends with a backslash
     path_folder = path + "\\" + bookname
     if not os.path.exists(path_folder):
         os.makedirs(path_folder)
     return path_folder
 
+
 def write_text_to_file(text, path):
+    """
+    Function that takes a text and a path as arguments and writes it to a file called content.txt
+    """
+    # strip linebreaks from text
+    text_without_linebreaks = text.replace("\r\n", "")
+    # write text to file content.txt
+    file_path = os.path.join(path, "content.txt")
+
+    # check if file exists, can be deleted later
+    print(f'Writing to {file_path}')
+
+    # write text to file
     f= open(path + "\\content.txt","w",encoding="utf8")
-    f.write(text)
-    f.close()
+    #f.write(text)
+    f.write(text_without_linebreaks)
+
+    # check if file was written, can be deleted later
+    print(f'Finished writing to {file_path}')
+    f.close() # close file
+
+#def strip_linebreaks(text):
+#    return text.replace("\r\n", "")
 
 def main():
+    # insures that there are two command line arguments if not the program exits
     if len(sys.argv) != 2:
         print("Usage: python gutenberg_cleanup.py <path_to_book_file>")
         sys.exit(1)
 
-    file_path = sys.argv[1] # Add your code here to get the file path from the command line arguments
+    # takes the file path from the command line arguments
+    file_path = sys.argv[1]
+
+    # extracts the book title from the file name
     book_title = os.path.basename(file_path).replace('.txt', '')
 
     # 1. Read the text file
