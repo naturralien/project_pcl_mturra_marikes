@@ -146,6 +146,13 @@ def strip_headers(text):
 
 #### MODIFY HERE ####
 
+def write_chapter_to_file(chapter_name, chapter_text,book_title):
+    if not os.path.exists(f"{book_title}/chapters"):
+        os.makedirs(f"{book_title}/chapters")
+    with open(f"{book_title}/chapters/{chapter_name}.txt","w") as file:
+        file.write(chapter_text)
+        
+
 def split_book_by_chapter(cleaned_text, book_title):
     """
     Implement a function that splits the book into chapters and saves 
@@ -159,20 +166,29 @@ def split_book_by_chapter(cleaned_text, book_title):
     #List of content list headers
     content_headers = ["CONTENTS"]
     #set of chapters
-    chapter_set = set()
+    chapter_list = list()
     #bool the identify if content header was found
     contentlist_found = False
     #iterate through book
-    for segment in segments:
+    for i in range(len(segments)):
         #chech if book segment is equal to content header
-        if (segment in content_headers):
+        if (segments[i] in content_headers):
             #set contentlist bool to True and continue with next iteration
             contentlist_found = True
             continue
         #add chapter to set if segment start is found in chapter name set
-        if contentlist_found and segment.startswith(chapter_markers):
-            chapter_set.add(segment)
-    print(chapter_set)
+        if contentlist_found and segments[i].startswith(chapter_markers):
+            if segments[i] not in chapter_list:
+                chapter_list.append(segments[i])
+            elif (segments[i] in chapter_list):
+                segments[i] = "CHAPTER_LIMIT" + segments[i]
+    
+    cleaned_text_with_chapter_limits = "\r\n".join(segments)
+    chapters = cleaned_text_with_chapter_limits.split("CHAPTER_LIMIT")
+    chapters.pop(0)
+    for i in range(len(chapters)):
+        write_chapter_to_file(chapter_list[i], chapters[i], book_title)
+    print(chapters)
     return
 
 def create_book_folder(path, bookname) -> str:
