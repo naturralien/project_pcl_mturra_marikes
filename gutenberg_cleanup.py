@@ -145,12 +145,13 @@ def strip_headers(text):
 ##############################################################################################################
 
 #### MODIFY HERE ####
+import re
 
 def write_chapter_to_file(chapter_name, chapter_text,book_title):
     if not os.path.exists(f"{book_title}/chapters"):
         os.makedirs(f"{book_title}/chapters")
     with open(f"{book_title}/chapters/{chapter_name}.txt","w") as file:
-        file.write(chapter_text)
+        file.writelines(chapter_text)
         
 
 def split_book_by_chapter(cleaned_text, book_title):
@@ -165,33 +166,45 @@ def split_book_by_chapter(cleaned_text, book_title):
     #segments = [segment.rstrip("\r\n") for segment in segments]
     #segments = segments.rstrip("\n")
     #tuple of chapter titles
-    chapter_markers = ("Letter", "Chapter")
+    chapter_markers = ("Letter", "Chapter", "CHAPTER")
     #List of content list headers
-    content_headers = ["CONTENTS"]
-    #set of chapters
+    content_headers = ["CONTENTS", "Contents"]
+    #list of chapters
     chapter_list = list()
-    #bool the identify if content header was found
+    #bool to identify if content header was found
     contentlist_found = False
     #iterate through book
     for i in range(len(segments)):
-        #chech if book segment is equal to content header
-        if (segments[i] in content_headers):
+        #chech if line is equal to content header
+        if not contentlist_found and segments[i] in content_headers:
             #set contentlist bool to True and continue with next iteration
             contentlist_found = True
             continue
         #add chapter to set if segment start is found in chapter name set
-        if contentlist_found and segments[i].startswith(chapter_markers):
-            if segments[i] not in chapter_list:
-                chapter_list.append(segments[i])
-            elif (segments[i] in chapter_list):
-                segments[i] = "CHAPTER_LIMIT" + segments[i]
-    
+        if contentlist_found:
+            #add chapter markers to Jekyll and Hyde chapters to discriminate from random all caps lines
+            if book_title == "DrJekyllAndMrHyde" and re.match("^[A-Z .'’]+$",segments[i]):
+                segments[i] = f"Chapter {segments[i]}"
+            #identify chapter markers
+            if segments[i].startswith(chapter_markers):
+                #strip chapter title from content list in dracula
+                if re.match("CHAPTER [XVI]+.[A-Za-z.’]",segments[i]):
+                    segments[i] = segments[i].split(".")[0]
+                #add new chapter name to list
+                if segments[i] not in chapter_list:
+                    chapter_list.append(segments[i])
+                #add chapter marker if chapter is already in list
+                elif (segments[i] in chapter_list):
+                    segments[i] = "CHAPTER_LIMIT" + segments[i]
+    #rejoin text with chapter limit markers
     cleaned_text_with_chapter_limits = "\r\n".join(segments)
+    #divide text by chapter limit markers
     chapters = cleaned_text_with_chapter_limits.split("CHAPTER_LIMIT")
+    #remove the first entry, so the introductive pages are not in the chapters list  
     chapters.pop(0)
+    #write each chapter to a seperate file
     for i in range(len(chapters)):
         write_chapter_to_file(chapter_list[i], chapters[i], book_title)
-    print(chapters)
     return
 
 def create_book_folder(path, bookname) -> str:
@@ -208,7 +221,7 @@ def create_book_folder(path, bookname) -> str:
     return path_folder
 
 
-def write_text_to_file(text, path):
+def write_whole_text_to_file(text, path):
     """
     Function that takes a text and a path as arguments and writes it to a file called content.txt
     """
@@ -221,16 +234,13 @@ def write_text_to_file(text, path):
     print(f'Writing to {file_path}')
 
     # write text to file
-    f= open(path + "\\content.txt","w",encoding="utf8")
+    f= open(file_path,"w",encoding="utf8")
     #f.write(text)
     f.write(text_without_linebreaks)
 
     # check if file was written, can be deleted later
     print(f'Finished writing to {file_path}')
     f.close() # close file
-
-#def strip_linebreaks(text):
-#    return text.replace("\r\n", "")
 
 def main():
     # insures that there are two command line arguments if not the program exits
@@ -251,7 +261,7 @@ def main():
     booktext = strip_headers("".join([w.lstrip() for w in lines]))
     # 3. Save the cleaned text in the book title folder
     book_folder_path = create_book_folder(os.path.dirname(os.path.abspath(__file__)), book_title)
-    write_text_to_file(booktext, book_folder_path)
+    write_whole_text_to_file(booktext, book_folder_path)
     # 4. Split the text into chapters and save them in the book title folder under a subfolder named 'chapters'
     split_book_by_chapter(booktext, book_title)
 
