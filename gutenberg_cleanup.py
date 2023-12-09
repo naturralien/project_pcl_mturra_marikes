@@ -202,10 +202,16 @@ def write_text_to_file(text, path):
     text_without_linebreaks = text.replace("\r\n", "")
     # write text to file content.txt
     file_path = os.path.join(path, "content.txt")
+
+    # check if file exists, can be deleted later
     print(f'Writing to {file_path}')
+
+    # write text to file
     f= open(path + "\\content.txt","w",encoding="utf8")
     #f.write(text)
     f.write(text_without_linebreaks)
+
+    # check if file was written, can be deleted later
     print(f'Finished writing to {file_path}')
     f.close() # close file
 
