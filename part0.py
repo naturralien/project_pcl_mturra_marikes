@@ -14,7 +14,8 @@ import json
 def json_conversion(data):
     """
     Create a function to convert the data to a json string here"""
-    pass
+    return json.dumps(data)
+    #pass
 
 
 def write_as_json(data, file_path):
@@ -22,11 +23,21 @@ def write_as_json(data, file_path):
     Create a function to write your json string to a file here.
     Think about a naming convention for the output files.
     """
-    pass
+    if file_path.includes('sentiment'):
+        with open(file_path, 'w') as sentiment_outfile:
+            json.dump(data, sentiment_outfile)
+
+    elif file_path.includes('entities'):
+        with open(file_path, 'w') as entities_outfile:
+            json.dump(data, entities_outfile)
+    #pass
 
 
 def main():
     # Here you may add the neccessary code to call your functions, and all the steps before, in between, and after calling them.
+    output_folder = 'output'
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
     pass
 
 

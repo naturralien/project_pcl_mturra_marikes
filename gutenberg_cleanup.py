@@ -148,11 +148,14 @@ def strip_headers(text):
 import re
 
 def write_chapter_to_file(chapter_name, chapter_text,book_title):
+    chapter_name = chapter_name.replace(" ", "_")
     if not os.path.exists(f"{book_title}/chapters"):
         os.makedirs(f"{book_title}/chapters")
     with open(f"{book_title}/chapters/{chapter_name}.txt","w") as file:
+
         file.writelines(chapter_text)
-        
+        #chapter_text = chapter_text.replace("\r\n", "")
+
 
 def split_book_by_chapter(cleaned_text, book_title):
     """
@@ -162,9 +165,6 @@ def split_book_by_chapter(cleaned_text, book_title):
     # Add your code here to split the cleaned_text into chapters
     #splits text at linebreak
     segments = cleaned_text.split("\r\n")
-    #removes linebreak from end of each segment
-    #segments = [segment.rstrip("\r\n") for segment in segments]
-    #segments = segments.rstrip("\n")
     #tuple of chapter titles
     chapter_markers = ("Letter", "Chapter", "CHAPTER")
     #List of content list headers
@@ -206,7 +206,20 @@ def split_book_by_chapter(cleaned_text, book_title):
     for i in range(len(chapters)):
         write_chapter_to_file(chapter_list[i], chapters[i], book_title)
     return
-
+"""
+def remove_whitespace_from_chapter_names(chaper_name):
+    
+    #Implement a function that removes whitespaces from chapter names
+    
+    # Add your code here to remove whitespaces from chapter names
+    #get list of chapter files
+    chapter_files = os.listdir(f"{chaper_name}/chapters")
+    #iterate through chapter files
+    for file in chapter_files:
+        #rename file without whitespace
+        os.rename(f"{chaper_name}/chapters/{file}",f"{chaper_name}/chapters/{file.replace(' ','_')}")
+    return
+"""
 def create_book_folder(path, bookname) -> str:
     """
     Function that takes a path and a bookname as arguments and creates a folder named after the bookname
@@ -240,7 +253,7 @@ def write_whole_text_to_file(text, path):
 
     # check if file was written, can be deleted later
     print(f'Finished writing to {file_path}')
-    f.close() # close file
+    f.close()# close file
 
 def main():
     # insures that there are two command line arguments if not the program exits

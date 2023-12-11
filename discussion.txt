@@ -1,0 +1,23 @@
+Identifying Named Entities and Sentiments by Chapter using grep commands
+
+Frankenstein:
+gets all words starting with upper case in chapters:
+ grep -Po --color=always '^[A-Z]\w[{3,}\s' Chapter_*.txt | uniq
+
+
+positive words:
+good appears 3 times: grep -Po --color=always '^good' Chapter_*.txt
+
+negative words:
+dark appears 6 times: grep -Po --color=always '^bad' Chapter_*.txt
+
+
+Dracula:
+gets all words starting with upper case in chapters:
+ grep -Po --color=always '^[A-Z]\w{3,}\s' CHAPTER_*.txt | uniq
+
+
+Dr. Jekyll and Mr. Hyde:
+
+gets all words starting with upper case in chapters:
+ grep -Po --color=always '^[A-Z]\w{3,}\s' Chapter_* | uniq
