@@ -148,6 +148,7 @@ def strip_headers(text):
 import re
 
 def write_chapter_to_file(chapter_name, chapter_text,book_title):
+    chapter_name = chapter_name.replace(" ","_")
     if not os.path.exists(f"{book_title}/chapters"):
         os.makedirs(f"{book_title}/chapters")
     with open(f"{book_title}/chapters/{chapter_name}.txt","w") as file:
