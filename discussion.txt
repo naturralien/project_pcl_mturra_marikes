@@ -3,8 +3,6 @@
 
 
 
-
-
 Identifying Named Entities and Sentiments by Chapter using grep commands
 
 For the named entities we used the following grep commands to extract for each chapter of each book:
