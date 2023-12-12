@@ -1,23 +1,46 @@
+
+
+
+
+
+
+
 Identifying Named Entities and Sentiments by Chapter using grep commands
+
+For the named entities we used the following grep commands to extract for each chapter of each book:
+As names in english are usually capitalised we used this feature to extract them from the text using regular expressions.
+
+Initial grep commands to start the extraction that were useful to some extent, but we need to filter out capitalised words that are not names,
+the inital thought was that names are usually longer than 3 characters, which is not always the case of course. Then there was also the problem
+with words like 'This' or 'What' as they are longer than 3 characters too but are not names. So we need to filter out these words as well.
 
 Frankenstein:
 gets all words starting with upper case in chapters:
  grep -Po --color=always '^[A-Z]\w[{3,}\s' Chapter_*.txt | uniq
 
-
-positive words:
-good appears 3 times: grep -Po --color=always '^good' Chapter_*.txt
-
-negative words:
-dark appears 6 times: grep -Po --color=always '^bad' Chapter_*.txt
-
-
 Dracula:
 gets all words starting with upper case in chapters:
  grep -Po --color=always '^[A-Z]\w{3,}\s' CHAPTER_*.txt | uniq
 
-
 Dr. Jekyll and Mr. Hyde:
-
 gets all words starting with upper case in chapters:
  grep -Po --color=always '^[A-Z]\w{3,}\s' Chapter_* | uniq
+
+
+
+
+To identify Sentiments in the Chapters we used the following process:
+The sentiment is usually described with positive or negative words, so we used this feature to extract them from the text using regular expressions.
+As the text does not include any POS tags we could not use this feature in our grep commands.
+Additionally, we also counted the appearances of the adjectives in the text to get a better understanding of the sentiment.
+The more counts of positive words the more positive the sentiment is and vice versa.
+
+positive words grep commands:
+good appears 3 times: grep -Po --color=always '^good' Chapter_*.txt
+
+negative words grep commands:
+dark appears 6 times: grep -Po --color=always '^bad' Chapter_*.txt
+
+
+
+
