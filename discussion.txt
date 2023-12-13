@@ -1,3 +1,14 @@
+Chapter splitting
+
+We took a quite ambitious approach when splitting the chapters. All of our books had content lists with all chapter names, so we saved those into
+a list. We then looped through the text files to see where these chapter names reoccur. We did this by both looking at kex word such as 
+"Chapter: ", but also using regex in one case where the book used Roman Numerals. After we had found the corresponding chapter names, we
+added a Chapter marker into the text, that we used later to split the full text into chapters and dumping the first entry that only contained
+the text that precedes the first chapter. 
+
+Using the chapter names was helpful to identifiy the chapter names and to find them again in the text, but the differences of how the books are 
+structured caused our chapter division function to have a fair amount of if-clauses with which we are not entirely happy with. 
+The function certainly is not perfect, and we may improve it going forward, but it allowed us to fulfill the desired task.
 
 Identifying Named Entities and Sentiments by Chapter using grep commands
 
@@ -54,20 +65,25 @@ We are aware that these commands are grep commands are of limited creativity and
 in an exercise that will not focus on grep commands going forward.
 
 To identify Sentiments in the Chapters we used the following process:
-The sentiment is usually described with positive or negative words, so we used this feature to extract them from the text using regular expressions.
-As the text does not include any POS tags we could not use this feature in our grep commands.
-Additionally, we also counted the appearances of the adjectives in the text to get a better understanding of the sentiment.
-The more counts of positive words the more positive the sentiment is and vice versa.
+The sentiment is usually described with positive or negative words, so we initially used this feature to extract them from the text
+using regular expressions. Because no POS tagger or similar is to be applied in the process, we can only work with a list of words, as 
+sentiment related words have no superficial features that would make them identifiable by grep. We therefore used the same grep commands 
+for all books, containing 20 words each that are deemed positive and negative. It has to be noted that these word lists were generated using 
+ChatGPT. 
 
-positive words grep commands:
-good appears 3 times: grep -Po --color=always '^good' Chapter_*.txt
+The first ten are supposed to be the 10 most common sentiment related words, and the following 10 are supposed to be sentiment words that 
+appear frequently in 
 
-negative words grep commands:
-dark appears 6 times: grep -Po --color=always '^bad' Chapter_*.txt
+.sh file for negative sentiments (line breaks for readibility)
+    for filename in *.txt; 
+    do grep -Po "bad|awful|terrible|horrible|poor|worse|worst|negative|disappointing|upsetting|
+    ghastly|gruesome|macabre|sinister|morbid|dreadful|ominous|foreboding|haunting|melancholic" ${filename} |
+    sort |uniq | tr "\n" "," >> Sentiments_Negative_${filename}; done
 
-A similar picture is painted in the sentiment analysis. Because no POS tagger or similar is to be applied in the process, we can only work with
-a list of words, as sentiment related words have no superficial features that would make them identifiable by grep. We therefore used the same 
-grep commands for all books, containing 20 words each that are deemed positive and negative. It has to be noted that these word lists were
-generated using ChatGPT. 
+.sh file for positive sentiments (line breaks for readibility)
+    for filename in *.txt; 
+    do grep -Po "good|great|excellent|amazing|wonderful|positive|happy|joyful|fantastic|delightful|
+    enchanting|mysterious|captivating|alluring|mesmerizing|intriguing|sublime|ethereal|spellbinding|bewitching" ${filename} | 
+    sort |uniq | tr "\n" "," >> Sentiments_Positive_${filename}; done
 
 
