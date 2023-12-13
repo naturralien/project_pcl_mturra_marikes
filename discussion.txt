@@ -20,8 +20,38 @@ Dr. Jekyll and Mr. Hyde:
 gets all words starting with upper case in chapters:
  grep -Po --color=always '^[A-Z]\w{3,}\s' Chapter_* | uniq
 
+However, the downsides of the approach above are obvious as well. Every word at the beginning of a sentence, including many words that are not
+Named Entities, will be identified as such. And if we exclude all  words at the beginning of a sentece, we run into the issue that we filter
+out many words, that are actually named entities. Due to the limitations of grep (and, frankly, because we will switch to spacy in the later 
+stages of the PCL project), we stuck to collecting data about the most frequent characters in our books and filtered them by chapter.
 
+[Line breaks for the sake of readibility]
 
+Frankenstein:
+# for filename in *.txt;
+do grep -Po "Victor|creature|fiend|spectre|dæmon|wretch|devil|ogre|Elizabeth|Justine|Alphonse|William|Walton" ${filename} | 
+sort |uniq | tr "\n" "," >> Entities_${filename}; 
+done
+
+It has to be noted that "the Monster" in Frankenstein is referred to by many different names including creature, fiend, spectre etc. which would 
+not have been matched by our initial grep command. Also, instead of Frankenstein, which is the family name of multiple characters (Victor, 
+Alphonse, William), we used their first names instead.
+
+Dracula
+for filename in *.txt; 
+do grep -Po "Dracula|Mina|Jonathan|Lucy|Seward|Van Helsing|Holmwood|Godalming" ${filename} | 
+sort |uniq | tr "\n" "," >> Entities_${filename}; done
+
+Holmwood and Godalming refer to the same character, whose name changes during the novel. Also, since Mina Murray marries Jonathan Harker and 
+accepts his family name, we cannot filter the name Harker, as it can refer to two different characters.
+
+Dr. Jekyll and Mr. Hyde
+for filename in *.txt; 
+do grep -Po "Jekyll|Hyde|Utterson|Lanfield|Lanyon|Poole|Newcomen|Carew" ${filename} | 
+sort |uniq | tr "\n" "," >> Entities_${filename}; done
+
+We are aware that these commands are grep commands are of limited creativity and usefulness, but as stated above, these are pragmatic solutions 
+in an exercise that will not focus on grep commands going forward.
 
 To identify Sentiments in the Chapters we used the following process:
 The sentiment is usually described with positive or negative words, so we used this feature to extract them from the text using regular expressions.
@@ -35,6 +65,9 @@ good appears 3 times: grep -Po --color=always '^good' Chapter_*.txt
 negative words grep commands:
 dark appears 6 times: grep -Po --color=always '^bad' Chapter_*.txt
 
-
+A similar picture is painted in the sentiment analysis. Because no POS tagger or similar is to be applied in the process, we can only work with
+a list of words, as sentiment related words have no superficial features that would make them identifiable by grep. We therefore used the same 
+grep commands for all books, containing 20 words each that are deemed positive and negative. It has to be noted that these word lists were
+generated using ChatGPT. 
 
 
