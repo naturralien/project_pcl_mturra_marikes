@@ -50,7 +50,6 @@ def write_as_json(data, file_path):
             with open(file_path, 'w') as sentiment_outfile:
                 json.dump(data, sentiment_outfile)
 
-
     # if path ends with Entities (Entities folder with txt files)
     elif file_path.endswith('Entities'):
         # iterate over the files in the folder
