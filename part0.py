@@ -14,27 +14,18 @@ import json
 def json_conversion(data):
     """
     Create a function to convert the data to a json string here"""
-    data =
-    #list to store words
+
+    # list to store words
     result_data = []
-    #to get the individual words as dictionary in sentiment file
-    if data.includes('Sentiment'):
-        for content in data:
-            words = content.strip().split(',')
-            result_data.extend([{'Adj': word} for word in words])
-            # remove the last element of the list because it's empty
-            result_data.pop()
+    # to get the individual words as dictionary in sentiment file
 
-    #to get the individual words as dictionary in entities file
-    elif data.includes('Entities'):
-        for content in data:
-            words = content.strip().split(',')
-            result_data.extend([{'Name': word} for word in words])
-            # remove the last element of the list because it's empty
-            result_data.pop()
-
-    return json.dumps(result_data) #return the json string
-    #pass
+    print("Data before processing: ", data)
+    for content in data:
+        words = content.strip().split(',')
+        result_data.extend([{'ADJ': word} for word in words])
+        result_data.pop()  # remove the last element of the list because it's empty
+    print("Data after processing: ", result_data)
+    return json.dumps(result_data)
 
 
 def write_as_json(data, file_path):
@@ -42,47 +33,55 @@ def write_as_json(data, file_path):
     Create a function to write your json string to a file here.
     Think about a naming convention for the output files.
     """
-    # if path ends with Sentiment (Sentiment folder with txt files)
-    if file_path.endswith('Sentiment'):
-        # iterate over the files in the folder
-        for data in os.path.dirname(file_path):
-            # open the file and save as json file
-            with open(file_path, 'w') as sentiment_outfile:
-                json.dump(data, sentiment_outfile)
+    with open(file_path, 'w') as outfile:
+        json.dump(data, outfile)
 
 
-    # if path ends with Entities (Entities folder with txt files)
-    elif file_path.endswith('Entities'):
-        # iterate over the files in the folder
-        for data in os.path.dirname(file_path):
-            # open the file and save as json file
-            with open(file_path, 'w') as entities_outfile:
-                json.dump(data, entities_outfile)
-    #pass
-
-def create_entities_sentiment_folders(path):
+def create_entities_sentiment_folders(book_path):
     """
-    Create folders to store json files for Entities and Sentiment Analysis
+    #Create folders to store json files for Entities and Sentiment Analysis
     """
+    entities_folder = None
+    sentiment_folder = None
+
     # create entities_json or sentiment_json folder
+    if book_path.endswith('sentiments'):
+        sentiment_folder = os.path.join(book_path.replace('sentiments', 'sentiment_json'))
+        if not os.path.exists(sentiment_folder):
+            os.makedirs(sentiment_folder)
 
-    sentiment_folder = os.path.join(path, 'sentiment_json')
-    if not os.path.exists(sentiment_folder):
-        os.makedirs(sentiment_folder)
-    return sentiment_folder
-    entities_folder = os.path.join(path, 'entities_json')
-    if not os.path.exists(entities_folder):
-        os.makedirs(entities_folder)
-    return entities_folder
+        # sentiment_folder = None # to avoid UnboundLocalError
+
+    elif book_path.endswith('entities'):
+        entities_folder = os.path.join(book_path.replace('entities', 'entities_json'))
+        if not os.path.exists(entities_folder):
+            os.makedirs(entities_folder)
+        # entities_folder = None # to avoid UnboundLocalError
+
+    return entities_folder, sentiment_folder
 
 def main():
     # Here you may add the neccessary code to call your functions, and all the steps before, in between, and after calling them.
-    """
-    output_folder = 'output'
-    if not os.path.exists(output_folder):
-        os.makedirs(output_folder)
-    pass
-    """
+
+    book_path = input("Enter the book path: ").strip()
+
+    entities_folder, sentiment_folder = create_entities_sentiment_folders(book_path)
+
+    for file_name in os.listdir(book_path):
+        file_path = os.path.join(book_path, file_name)
+
+        if os.path.isfile(file_path):
+            with open(file_path, 'r') as infile:
+                data = infile.readlines()
+
+            data_type = 'entities' if 'entities' in book_path else 'sentiments'
+            # json_data = json_conversion(data)
+            output_folder = entities_folder if data_type == 'entities' else sentiment_folder
+            output_path = os.path.join(output_folder, f"{file_name.replace('.txt', '.json')}")
+            output_path = os.path.join(output_folder, f"{file_name.replace('.txt', '.json')}")
+
+            json_data = json_conversion(data)
+            write_as_json(json_data, output_path)
 
 # This is the standard boilerplate that calls the main() function when the program is executed.
 if __name__ == '__main__':
