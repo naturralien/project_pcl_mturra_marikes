@@ -189,7 +189,7 @@ def split_book_by_chapter(cleaned_text, book_title):
             #identify chapter markers
             if segments[i].startswith(chapter_markers):
                 #strip chapter title from content list in dracula
-                if re.match("CHAPTER [XVI]+.[A-Za-z.’]",segments[i]):
+                if re.search("CHAPTER (X{0,3}(IX|IV|V?I{0,3}))",segments[i]):
                     segments[i] = segments[i].split(".")[0]
                 #add new chapter name to list
                 if segments[i] not in chapter_list:
