@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="686fc9a0-89e0-42da-ab0e-0e0f0671363f" name="Changes" comment="tired some stuff but not quite sure what to exactly save for grep files">
+      <change beforePath="$PROJECT_DIR$/part0.py" beforeDir="false" afterPath="$PROJECT_DIR$/part0.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2ZGCViI8j4Gnl12lpLidKAHopSq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/marie/Documents/HS2023/PCL1/Dracula_Eval&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="686fc9a0-89e0-42da-ab0e-0e0f0671363f" name="Changes" comment="" />
+      <created>1702039057040</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702039057040</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Added some comments and doc strings and should be possible to get the text without /n">
+      <created>1702119861020</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1702119861020</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added some comments and doc strings and should be possible to get the text without /n">
+      <created>1702120143906</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1702120143906</updated>
+    </task>
+    <task id="LOCAL-00003" summary="tired some stuff but not quite sure what to exactly save for grep files">
+      <created>1702336153672</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1702336153672</updated>
+    </task>
+    <task id="LOCAL-00004" summary="tired some stuff but not quite sure what to exactly save for grep files">
+      <created>1702390318396</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1702390318396</updated>
+    </task>
+    <task id="LOCAL-00005" summary="tired some stuff but not quite sure what to exactly save for grep files">
+      <created>1702390592919</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1702390592919</updated>
+    </task>
+    <task id="LOCAL-00006" summary="tired some stuff but not quite sure what to exactly save for grep files">
+      <created>1702390721023</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1702390721023</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added some comments and doc strings and should be possible to get the text without /n" />
+    <MESSAGE value="tired some stuff but not quite sure what to exactly save for grep files" />
+    <option name="LAST_COMMIT_MESSAGE" value="tired some stuff but not quite sure what to exactly save for grep files" />
+  </component>
+</project>
