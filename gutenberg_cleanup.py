@@ -155,6 +155,43 @@ def write_chapter_to_file(chapter_name, chapter_text,book_title):
         file.writelines(chapter_text)
         
 
+def get_chapter_list_of_book(book_lines, chapter_markers, content_headers, book_title) -> dict():
+    """
+    Creates dictionary from book text split into list of strings at newline. 
+    
+    Returned dictionary includes name of chapter as key and index as value.
+    
+    Params: 
+    book_lines: book split at linebreak as list of strings
+    chapter_markers: Substrings included in chapter names (e.g. "Chapter") as tuple
+    content_headers: Names of content list headers (e.g. "CONTENT") as tuple    
+    book_title: title of book as string
+    """
+    #set variable to check if content list header was found
+    content_list_found = False
+    #map chapters of Jekyll and Hyde
+    chapter_name_index_map = dict()
+    #iterate through text segments
+    for i in range(len(book_lines)):
+        #check if current segment is header of content list
+        if not content_list_found and book_lines[i] in content_headers:
+            #set contentlist bool to True and continue with next iteration
+            content_list_found = True
+            continue
+        #check if content list has been found
+        if(content_list_found):
+            #remove superflous text from chapters with existing chapter markers 
+            book_lines[i] = book_lines[i].split(".")[0] if book_lines[i].startswith(chapter_markers) else book_lines[i]
+            #check if either chapter marker appears in current segment or Jekyll special condition is met
+            if book_lines[i].startswith(chapter_markers) or (book_title == "DrJekyllAndMrHyde" and re.match("^[A-Z .'’]+$",book_lines[i])):
+                #break loop if first chapter name reappears as we have looped through the entire content list
+                if (book_lines[i] in chapter_name_index_map):
+                    break
+                #add chapter to chapter list
+                chapter_name_index_map[book_lines[i]] = len(chapter_name_index_map)
+    #return chapter name index dict
+    return chapter_name_index_map 
+
 def split_book_by_chapter(cleaned_text, book_title):
     """
     Implement a function that splits the book into chapters and saves 
@@ -163,49 +200,34 @@ def split_book_by_chapter(cleaned_text, book_title):
     # Add your code here to split the cleaned_text into chapters
     #splits text at linebreak
     segments = cleaned_text.split("\r\n")
-    #removes linebreak from end of each segment
-    #segments = [segment.rstrip("\r\n") for segment in segments]
-    #segments = segments.rstrip("\n")
-    #tuple of chapter titles
+    #define tuple of chapter titles
     chapter_markers = ("Letter", "Chapter", "CHAPTER")
-    #List of content list headers
-    content_headers = ["CONTENTS", "Contents"]
-    #list of chapters
-    chapter_list = list()
-    #bool to identify if content header was found
-    contentlist_found = False
+    #define list of content list headers
+    content_headers = ("CONTENTS", "Contents")
+    #call function to get chapter list
+    chapter_list = get_chapter_list_of_book(segments,chapter_markers, content_headers, book_title)
+
+    #chapter indexer because smart me decided to rewrite the function and now I need to index the chapters the first time to prevent the content list from being identified as chapters 
+    chapter_indexer = []
+
     #iterate through book
     for i in range(len(segments)):
-        #chech if line is equal to content header
-        if not contentlist_found and segments[i] in content_headers:
-            #set contentlist bool to True and continue with next iteration
-            contentlist_found = True
-            continue
-        #add chapter to set if segment start is found in chapter name set
-        if contentlist_found:
-            #add chapter markers to Jekyll and Hyde chapters to discriminate from random all caps lines
-            if book_title == "DrJekyllAndMrHyde" and re.match("^[A-Z .'’]+$",segments[i]):
-                segments[i] = f"Chapter {segments[i]}"
-            #identify chapter markers
-            if segments[i].startswith(chapter_markers):
-                #strip chapter title from content list in dracula
-                if re.search("CHAPTER (X{0,3}(IX|IV|V?I{0,3}))",segments[i]):
-                    segments[i] = segments[i].split(".")[0]
-                #add new chapter name to list
-                if segments[i] not in chapter_list:
-                    chapter_list.append(segments[i])
-                #add chapter marker if chapter is already in list
-                elif (segments[i] in chapter_list):
-                    segments[i] = "CHAPTER_LIMIT" + segments[i]
+        #identify chapter markers
+        if segments[i] in chapter_list:
+            if segments[i] not in chapter_indexer:
+                chapter_indexer.append(segments[i])
+            else:
+                segments[i] = "[CHAPTER_LIMIT]" + segments[i]
+
     #rejoin text with chapter limit markers
     cleaned_text_with_chapter_limits = "\r\n".join(segments)
     #divide text by chapter limit markers
-    chapters = cleaned_text_with_chapter_limits.split("CHAPTER_LIMIT")
+    chapters = cleaned_text_with_chapter_limits.split("[CHAPTER_LIMIT]")
     #remove the first entry, so the introductive pages are not in the chapters list  
     chapters.pop(0)
     #write each chapter to a seperate file
-    for i in range(len(chapters)):
-        write_chapter_to_file(chapter_list[i], chapters[i], book_title)
+    for chapter_name, index in chapter_list.items():
+        write_chapter_to_file(f"Chapter {index + 1}", chapters[index], book_title)
     return
 
 def create_book_folder(path, bookname) -> str:
@@ -227,7 +249,7 @@ def write_whole_text_to_file(text, path):
     Function that takes a text and a path as arguments and writes it to a file called content.txt
     """
     # strip linebreaks from text
-    text_without_linebreaks = text.replace("\r\n", "")
+    #text_without_linebreaks = text.replace("\r\n", "")
     # write text to file content.txt
     file_path = os.path.join(path, "content.txt")
 
@@ -236,8 +258,9 @@ def write_whole_text_to_file(text, path):
 
     # write text to file
     f= open(file_path,"w",encoding="utf8")
-    #f.write(text)
-    f.write(text_without_linebreaks)
+    #f.write(text_without_linebreaks)
+    f.write(text)
+    
 
     # check if file was written, can be deleted later
     print(f'Finished writing to {file_path}')

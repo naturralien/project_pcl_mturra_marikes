@@ -11,7 +11,9 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "args" : ["C:\\Users\\41764\\Documents\\GitHub\\project_pcl_mturra_mkessle\\Books\\DrJekyllAndMrHyde.txt"]
+            "args" : ["C:\\Users\\41764\\Documents\\GitHub\\project_pcl_mturra_mkessle\\Books\\frankenstein.txt"]
+            //"args" : ["C:\\Users\\41764\\Documents\\GitHub\\project_pcl_mturra_mkessle\\Books\\dracula.txt"]
+            //"args" : ["C:\\Users\\41764\\Documents\\GitHub\\project_pcl_mturra_mkessle\\Books\\DrJekyllAndMrHyde.txt"]
         }
     ]
 }
