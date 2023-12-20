@@ -10,34 +10,47 @@ import json
 import spacy
 import nltk
 # --- You may add other imports here ---
-import jsonpickle
-
 
 
 # TODO: Load the spaCy model
 # TODO: Load the book text
 
-class MyEncoder(json.JSONEncoder):
+class CustomEncoder(json.JSONEncoder):
     """
     JSONEncoder subclass that leverages an object's `__json__()` method,
     if available, to obtain its default JSON representation. 
-
+    Source: https://stackoverflow.com/a/24030569
     """
+
     def default(self, obj):
         if hasattr(obj, '__json__'):
             return obj.__json__()
         return json.JSONEncoder.default(self, obj)
 
+
 class Position:
+    """
+    Custom class for position of occurrence
+    start: int
+    end: int 
+    """
+
     def __init__(self, start, end):
         self.start = start
         self.end = end
-        
+
     def __json__(self):
-        return {'start': self.start, 'chapter': self.end}
+        return {'start': self.start, 'end': self.end}
 
 
 class Occurrence:
+    """
+    Custom class for every occurence of a named entity
+    sentence: str
+    chapter: str
+    boundaries: Position
+    """
+
     def __init__(self, sentence, chapter, boundaries):
         self.sentence = sentence
         self.chapter = chapter,
@@ -46,7 +59,15 @@ class Occurrence:
     def __json__(self):
         return {'sentence': self.sentence, 'chapter': self.chapter, 'Position': self.boundaries}
 
+
 class NamedBookEntity:
+    """
+    Custom class for the protagonists and their aliases
+    Name: str
+    Aliases: str[]
+    Occurrences: Occurrence[]
+    """
+
     def __init__(self, name, aliases, occurrences):
         self.name = name
         self.aliases = aliases
@@ -55,26 +76,60 @@ class NamedBookEntity:
     def __json__(self):
         return {'name': self.name, 'aliases': self.aliases, 'Occurrences': self.occurrences}
 
-def create_entities(booktitle):
-    entities = []
-    if booktitle:
-        entities.extend(
-            [NamedBookEntity("Gabriel John Utterson",["Utterson", "Mr. Utterson"], list()),
-            NamedBookEntity("Richard Enfield",["Richard Enfield", "Richard" , "Enfield"], list()),
-            NamedBookEntity("Dr. Henry Jekyll",["Jekyll", "Henry Jekyll", "Mr. Jekyll", "Dr. Jekyll"], list()),
-            NamedBookEntity("Edward Hyde",["Hyde", "Edward Hyde", "Edward", "Mr. Hyde"], list()),
-            NamedBookEntity("Dr. Hastie Lanyon", ["Dr. Lanyon", "Lanyon", "Hastie", "Mr. Lanyon"], list())
-            ]
-        )
-    return entities
 
 def get_entities_from_book(booktitle):
-    entities = create_entities(booktitle) 
+    """
+        Creates entities for a specific book
+        Returns a list of static entities (the main characters)
+    """
+    entities = list()
+    if booktitle == "DrJekyllAndMrHyde":
+        entities.extend(
+            [NamedBookEntity("Gabriel John Utterson", ["Utterson", "Mr. Utterson"], list()),
+             NamedBookEntity("Richard Enfield", [
+                             "Richard Enfield", "Richard", "Enfield"], list()),
+             NamedBookEntity("Dr. Henry Jekyll", [
+                             "Jekyll", "Henry Jekyll", "Mr. Jekyll", "Dr. Jekyll"], list()),
+             NamedBookEntity(
+                 "Edward Hyde", ["Hyde", "Edward Hyde", "Edward", "Mr. Hyde"], list()),
+             NamedBookEntity("Dr. Hastie Lanyon", [
+                             "Dr. Lanyon", "Lanyon", "Hastie", "Mr. Lanyon"], list())
+             ])
+    elif (booktitle == "dracula"):
+         entities.extend(
+            [NamedBookEntity("Count Dracula", ["Dracula", "Count Dracula"], list()),
+             NamedBookEntity("Van Helsing", [
+                             "Van Helsing", "Helsing"], list()),
+             NamedBookEntity("Jonathan Harker", [
+                             "Jonathan Harker", "Jonathan", "Harker"], list()),
+             NamedBookEntity("Mina Murray", [
+                "Mina", "Murray", "Mina Harker", "MINA"], list()),
+             NamedBookEntity("Lucy Westenra", [
+                             "Lucy", "Westenra", "Lucy Westenra"], list()),
+            NamedBookEntity("Dr. John Seward", [
+                             "Dr. John Seward", "John", "Seward", "Dr. Seward"], list()),
+            NamedBookEntity("Arthur Holmwood", [
+                             "Arthur Holmwood", "Arthur", "Holmwood", "Mr. Holmwood"], list())                         
+             ]     
+        )
+    elif (booktitle == "frankenstein"):
+        entities.extend(
+            [NamedBookEntity("Victor Frankenstein", ["Victor"], list()),
+             NamedBookEntity("The Monster", [
+                             "monster", "Monster", "fiend", "wretch", "Wretch", "vile insect", "abhorred monster", "wrteched devil", "abhorred devil"], list()),
+             NamedBookEntity("Robert Walton", [
+                             "seafarer", "Walton", "Robert", "Robert Walton"], list()),
+             NamedBookEntity(
+                 "Elizabeth Lavenza", ["Elizabeth", "Lavenza", "Elizabeth Lavenza", "orphan"], list()),
+             NamedBookEntity("Henry Cleval", [
+                             "boyhood friend", "Henry", "Cleval", "Henry Cleval"], list())
+             ]    
+        )
     return entities
 
 
 def clean_text(text):
-    text = text.replace("\n\n"," ")
+    text = text.replace("\n\n", " ")
     return text
 
 
@@ -87,56 +142,95 @@ def read_text_from_path(path):
         lines = f.readlines()
     return "".join(lines)
 
-# Feel free to add more functions as needed!
-
-
 # Function to process the text and perform NER
+
+
 def perform_ner(text, spacy_model):
-    # TODO: Process the text using the provided model and return the entities
-    # Example: return nlp_model(text).ents
-    entities = []
+    """
+    Create spacy.doc from text and extract all PERSON labelled entities
+    """
     doc = spacy_model(text)
-    return [ent for ent in doc.ents if ent.label_ == "PERSON"] 
+    return [ent for ent in doc.ents if ent.label_ == "PERSON"]
 
 
 # Function to extract and structure entity information
-def extract_entity_info(entities):
-    entity_data = create_entities("TODO")
+def extract_entity_info(entities_spacy, entities_model, chapter):
+    """
 
-    for entity in entities:
-        for character in entity_data:
+    """
+    # loop through spacy.ent list
+    for entity in entities_spacy:
+        # loop through NamedBookEntity (custom class) list
+        for character in entities_model:
+            # condition if ent object texts appears in aliases list
             if entity.text in character.aliases:
+                # add occurrence attributes to Occurrence list of NamedBookEntity
                 character.occurrences.append(
-                    Occurrence(str(entity.sent), "TODO", Position(int(entity.start_char),int(entity.end_char)))
+                    Occurrence(str(entity.sent), chapter, Position(
+                        int(entity.start_char), int(entity.end_char)))
                 )
-    # TODO: Iterate over entities and extract necessary information
-    # Append the extracted info to entity_data
-    return entity_data
+    return entities_model
 
+
+def get_list_of_filenames(folderpath):
+    """
+    Loads books from provided folder by splitting file names of .txts
+    """
+    # initialise empty files list
+    files = list()
+    # get directory from argument
+    directory = os.fsencode(folderpath)
+    # loop through directory
+    for file in os.listdir(directory):
+        # get filename from file
+        filename = os.fsdecode(file)
+        # split filename from extension and add substring to files list
+        files.append(filename.split(".")[0])
+    # return list of file names
+    return files
 
 # Function to save data to JSON file
+
+
 def save_to_json(data, filename):
-    # TODO: Save the data to a JSON file
-    json_data = json.dumps(data, cls=MyEncoder)
-    with open(filename,"w", encoding='utf-8') as jsonfile:
-        json.dump(json_data,jsonfile,ensure_ascii=False)
+    """
+    Saves entity data to json file using CustomEncoder to encode the customs classes
+    """
+    # transform entity data to json with CustomEncoder
+    json_data = json.dumps(data, cls=CustomEncoder)
+    # write data to json file
+    with open(filename, "w", encoding='utf-8') as jsonfile:
+        json.dump(json_data, jsonfile, ensure_ascii=False)
+    # return fuckall
     return
 
 
 # Main Function
 def main():
-    # TODO: Load your book text here
-    book_text = clean_text(read_text_from_path("DrJekyllAndMrHyde\chapters\Chapter_1.txt"))
-    nlp = spacy.load('en_core_web_sm') 
+    # Load list of books from folder
+    books = get_list_of_filenames("Books")
 
-    # Perform NER on the text
-    entities = perform_ner(book_text, nlp)
+    # initialise english spacy model
+    nlp = spacy.load('en_core_web_sm')
 
-    # Extract information from entities
-    entity_info = extract_entity_info(entities)
+    # iterate through the books
+    for book in books:
+        # get list of chapter from directory
+        chapters = get_list_of_filenames(f"{book}\chapters")
+        # load new NamedBookEntity from booktitkle
+        entities_model = get_entities_from_book(book)
+        for chapter in chapters:
+            chapter_text = clean_text(read_text_from_path(
+                f"{book}\chapters\{chapter}.txt"))
+            # Perform NER on the text
+            entities_spacy = perform_ner(chapter_text, nlp)
 
-    # Save the results to a JSON file
-    save_to_json(entity_info, 'DrJekyllAndMrHyde_Chapter1_NER.json')
+            # Extract information from entities
+            entitiesModel = extract_entity_info(
+                entities_spacy, entities_model, chapter)
+
+        # Save the results to a JSON file
+        save_to_json(entitiesModel, f'{book}_MainCharacters_NER.json')
 
 
 # Run the main function
