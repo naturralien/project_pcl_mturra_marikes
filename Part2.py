@@ -76,7 +76,11 @@ def main():
         char_name = main_character.name
         occurrence_per_chapter = dict()
         sentiment_scores_per_sentence = dict()
+
+        print(f'Analyzing sentiment for {char_name}')
+
         for occurrence in main_character.Occurrences:
+            print(f'Chapter {occurrence.chapter}: Sentence {occurrence.sentence}')
             #occurrence_per_chapter[occurrence.chapter] = occurrence_per_chapter.get(occurrence.chapter, 0) + 1
             #chapter_key = occurrence.chapter[0]
             # converting it to tuple because list is not hashable
@@ -86,6 +90,8 @@ def main():
             # Analyze the sentiment of the sentence
             sentence_sentiments, _ = analyze_sentiment(occurrence.sentence)
             sentiment_scores_per_sentence[f'Chapter {chapter_key}: Sentence {occurrence.sentence}'] = sentence_sentiments
+            for sentence_num, (sentence_key, sentiment_scores) in enumerate(sentiment_scores_per_sentence.items(), start=1):
+                print(f'Chapter {chapter_key}: Sentence {sentence_num} sentiment for {char_name}: {sentiment_scores}')
             # Print the results of sentiment analysis of each sentence
             #for i, result in enumerate(sentence_sentiments):
             #    print(f' Sentence {i+1} sentiment for {char_name}: {result}') #in chapter {chapter_key}: {result}'
