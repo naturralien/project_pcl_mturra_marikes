@@ -25,31 +25,27 @@ def analyze_sentiment(text, analyzer=None):
     book_text = NRCLex(text)
     # if analyzer is not default, then return the respective results
     if analyzer is not None:
-        #sentiment_results = book_text.affect_frequencies
         if analyzer == 'emotion':
             sentiment_results = book_text.raw_emotion_scores
-            #sentiment_results = [book_text.raw_emotion_scores(sentence) for sentence in book_text.sentences]
         elif analyzer == 'emotion_intensity':
             sentiment_results = book_text.affect_intensity
-            #sentiment_results = [book_text.affect_intensity(sentence) for sentence in book_text.sentences]
         elif analyzer == 'top_emotions':
             sentiment_results = book_text.top_emotions
-            #sentiment_results = [book_text.top_emotions(sentence) for sentence in book_text.sentences]
     # using the default analyzer for sentiment analysis
     else:
         sentiment_results = book_text.affect_frequencies
-        #sentiment_results = [book_text.affect_frequencies(sentence) for sentence in book_text.sentences]
-        #print(sentiment_results)
+
     # returns the sentiment results and the analyzer used
     return sentiment_results, analyzer
 
 
 # Function to save sentiment analysis results to a JSON file
 def save_sentiment_results(results, filename):
+    json_data = json.dumps(results, indent=2, ensure_ascii=False)
     # TODO: Save the sentiment analysis results in a structured JSON format
-    with open(filename, 'w') as output_file:
-        json.dump(results, output_file, cls='utf-8', indent=2)
-    pass
+    with open(filename, 'w', encoding='utf-8') as output_file:
+        output_file.write(json_data)
+    #pass
 
 
 # Main function
@@ -61,9 +57,6 @@ def main():
     parser.add_argument('file_path', help='Path to txt file to be analyzed.')
     args = parser.parse_args()
     try:
-        #with open(args.file_path, 'r', encoding='utf-8') as file:
-        #    text = file.read()
-
         with open(args.file_path, 'r', encoding='utf-8') as file:
             text = json.load(file)
             entity_data = json.loads(text, object_hook=lambda d: SimpleNamespace(**d))
@@ -77,48 +70,26 @@ def main():
         occurrence_per_chapter = dict()
         sentiment_scores_per_sentence = dict()
 
-        print(f'Analyzing sentiment for {char_name}')
+        #print(f'Analyzing sentiment for {char_name}')
 
         for occurrence in main_character.Occurrences:
-            print(f'Chapter {occurrence.chapter}: Sentence {occurrence.sentence}')
-            #occurrence_per_chapter[occurrence.chapter] = occurrence_per_chapter.get(occurrence.chapter, 0) + 1
-            #chapter_key = occurrence.chapter[0]
+
             # converting it to tuple because list is not hashable
             chapter_key = tuple(occurrence.chapter)
-            occurrence_per_chapter[chapter_key] = occurrence_per_chapter.get(chapter_key, 0) + 1
 
             # Analyze the sentiment of the sentence
             sentence_sentiments, _ = analyze_sentiment(occurrence.sentence)
-            sentiment_scores_per_sentence[f'Chapter {chapter_key}: Sentence {occurrence.sentence}'] = sentence_sentiments
-            for sentence_num, (sentence_key, sentiment_scores) in enumerate(sentiment_scores_per_sentence.items(), start=1):
-                print(f'Chapter {chapter_key}: Sentence {sentence_num} sentiment for {char_name}: {sentiment_scores}')
-            # Print the results of sentiment analysis of each sentence
-            #for i, result in enumerate(sentence_sentiments):
-            #    print(f' Sentence {i+1} sentiment for {char_name}: {result}') #in chapter {chapter_key}: {result}'
+            sentence_key = f'For {chapter_key}, Sentence: \'{occurrence.sentence}\'' #added
+            sentiment_scores_per_sentence[sentence_key] = sentence_sentiments
+            for sentence_num, (key, sentiment_scores) in enumerate(sentiment_scores_per_sentence.items(), start=1):
+                #for easier reading
+                print()
+        print(f'The sentiment scores associated with {char_name} are:')
+        for sentence_key, sentiment_scores in sentiment_scores_per_sentence.items(): #changed list to scores
 
-            #idk what this is for
-            #for i, (emotion, score) in enumerate(sentence_sentiments.items()):
-                #print(f'Chapter {chapter_key}: Sentence {i+1} sentiment ({emotion}): {score}')
-            # for easier reading
+            print(f'{sentence_key}, the sentiments are: {sentiment_scores}')
+            print()
 
-            print()
-        """ 
-        not necessary maybe:   
-        print(f'{char_name} appears in the following chapters:')
-        for chapter_key, count in occurrence_per_chapter.items():
-            print(f'Chapter {chapter_key}: {count} occurrences')
-        """
-        """"
-            if chapter_key in occurrence_per_chapter:
-                occurrence_per_chapter[chapter_key] += 1
-            else:
-                occurrence_per_chapter[chapter_key] = 1
-        print(f'{char_name} appears in the following chapters:')
-        """
-        print(f' The sentiment scores associated with {char_name} are:')
-        for sentence_key, sentiment_scores in sentiment_scores_per_sentence.items():
-            print(f' Sentence {sentence_key}: {sentiment_scores}')
-            print()
     #text = open('.txt', 'r').read()
     # TODO: Perform sentiment analysis on the text using your chosen tool
     # For example, analyze each sentence or paragraph where entities are identified
@@ -127,7 +98,9 @@ def main():
     #print(sentiment_results)
 
     # Save the results to a JSON file
-    save_sentiment_results(sentiment_results, 'BookTitle_Sentiment.json')
+    Book_name = os.path.basename(args.file_path).split('.')[0].strip('_NER')
+    json_filename = f'{Book_name}_Sentiment.json'
+    save_sentiment_results(json_filename, sentiment_scores_per_sentence)
     # Example filename: 'BookTitle_Sentiment.json'
 
 
