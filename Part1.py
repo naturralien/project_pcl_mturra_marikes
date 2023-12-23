@@ -195,7 +195,7 @@ def set_up_spacy(nlp, entity_model):
     }
     ruler = nlp.add_pipe("entity_ruler", config=config)
     ruler.add_patterns(patterns)
-    return
+    return nlp
 
 
 def get_list_of_filenames(folderpath):
@@ -246,7 +246,7 @@ def main():
         # load new NamedBookEntity from booktitkle
         entities_model = get_entities_from_book(book)
         # set up custom entity ruler pipeline
-        set_up_spacy(nlp, entities_model)
+        nlp = set_up_spacy(nlp, entities_model)
         for chapter in chapters:
             # read chapter from file
             chapter_text = clean_text(read_text_from_path(

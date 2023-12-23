@@ -18,15 +18,26 @@ for main_character in entity_data:
     char_name = main_character.name
     occurence_per_chapter = dict()
     for occurrence in main_character.Occurrences:
-        if occurence_per_chapter.get(occurrence.chapter[0]):
-            occurence_per_chapter[occurrence.chapter[0]] += 1
+        chapter_key = occurrence.chapter[0]
+        if chapter_key in occurence_per_chapter:
+            occurence_per_chapter[chapter_key] += 1
         else:
-            occurence_per_chapter.update({f"{occurrence.chapter[0]}": 1})
+            occurence_per_chapter[chapter_key] = 1
+
+    # Sort chapters numerically while maintaining occurrence counts
+    sorted_chapters = sorted(occurence_per_chapter.items(), key=lambda x: int(x[0].split('_')[-1]))
+    occurence_per_chapter = dict(sorted_chapters)
+
     occurrences_of_characters[char_name] = occurence_per_chapter
-    print(occurrences_of_characters)
+
+all_chapters = set()
+for character in occurrences_of_characters.values():
+    all_chapters.update(character.keys())
+
+sorted_chapters = sorted(all_chapters, key=lambda x: int(x.split('_')[-1]))
 
 # Create a DataFrame from the occurrences data
-heatmap_data = pd.DataFrame.from_dict(occurrences_of_characters, orient="index")
+heatmap_data = pd.DataFrame.from_dict(occurrences_of_characters, orient="index", columns=sorted_chapters)
 
 # Create heatmap
 plt.figure(figsize=(15, 10))  # Adjust size as needed
