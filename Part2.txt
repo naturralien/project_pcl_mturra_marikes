@@ -1,0 +1,8 @@
+Part 2:
+a) We chose NRCLex as sentiment analysis tool. Since we are only focusing on
+the sentiment analysis for Part 2 and already did the NER in Part 1, we do not need to use
+spaCy. spaCy would also be less accurate than the other two options.
+Flair would also be a good option in our case, but we chose NRCLex because it is easier to use and
+we do not need to train a model for our specific case. Also, because we are working with three different books.
+One of the downsides of using NRCLex is that it does not support foreign languages. Our books
+should all be in English, so it should not cause any problems in our case.
