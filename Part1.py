@@ -85,9 +85,9 @@ def get_entities_from_book(booktitle):
     entities = list()
     if booktitle == "DrJekyllAndMrHyde":
         entities.extend(
-            [NamedBookEntity("Gabriel John Utterson", ["Utterson", "Mr. Utterson"], list()),
+            [NamedBookEntity("Gabriel John Utterson", ["Gabriel", "Gabriel John Utterson", "Utterson", "Mr. Utterson"], list()),
              NamedBookEntity("Richard Enfield", [
-                             "Richard Enfield", "Richard", "Enfield"], list()),
+                             "Richard Enfield", "Richard", "Enfield", "Mr. Enfield"], list()),
              NamedBookEntity("Dr. Henry Jekyll", [
                              "Jekyll", "Henry Jekyll", "Mr. Jekyll", "Dr. Jekyll"], list()),
              NamedBookEntity(
@@ -96,21 +96,21 @@ def get_entities_from_book(booktitle):
                              "Dr. Lanyon", "Lanyon", "Hastie", "Mr. Lanyon"], list())
              ])
     elif (booktitle == "dracula"):
-         entities.extend(
+        entities.extend(
             [NamedBookEntity("Count Dracula", ["Dracula", "Count Dracula"], list()),
              NamedBookEntity("Van Helsing", [
-                             "Van Helsing", "Helsing"], list()),
+                 "Van Helsing", "Helsing"], list()),
              NamedBookEntity("Jonathan Harker", [
-                             "Jonathan Harker", "Jonathan", "Harker"], list()),
+                 "Jonathan Harker", "Jonathan", "Harker"], list()),
              NamedBookEntity("Mina Murray", [
-                "Mina", "Murray", "Mina Harker", "MINA"], list()),
+                 "Mina", "Murray", "Mina Harker", "MINA"], list()),
              NamedBookEntity("Lucy Westenra", [
-                             "Lucy", "Westenra", "Lucy Westenra"], list()),
-            NamedBookEntity("Dr. John Seward", [
-                             "Dr. John Seward", "John", "Seward", "Dr. Seward"], list()),
-            NamedBookEntity("Arthur Holmwood", [
-                             "Arthur Holmwood", "Arthur", "Holmwood", "Mr. Holmwood"], list())                         
-             ]     
+                 "Lucy", "Westenra", "Lucy Westenra"], list()),
+             NamedBookEntity("Dr. John Seward", [
+                 "Dr. John Seward", "John", "Seward", "Dr. Seward"], list()),
+             NamedBookEntity("Arthur Holmwood", [
+                 "Arthur Holmwood", "Arthur", "Holmwood", "Mr. Holmwood"], list())
+             ]
         )
     elif (booktitle == "frankenstein"):
         entities.extend(
@@ -123,7 +123,7 @@ def get_entities_from_book(booktitle):
                  "Elizabeth Lavenza", ["Elizabeth", "Lavenza", "Elizabeth Lavenza", "orphan"], list()),
              NamedBookEntity("Henry Cleval", [
                              "boyhood friend", "Henry", "Cleval", "Henry Cleval"], list())
-             ]    
+             ]
         )
     return entities
 
@@ -149,14 +149,18 @@ def perform_ner(text, spacy_model):
     """
     Create spacy.doc from text and extract all PERSON labelled entities
     """
+    # feed chapter text into spacy
     doc = spacy_model(text)
+    # return all PERSON labelled entites
     return [ent for ent in doc.ents if ent.label_ == "PERSON"]
 
 
 # Function to extract and structure entity information
 def extract_entity_info(entities_spacy, entities_model, chapter):
     """
-
+    Sieve through all PERSON labelled entities from spacy and
+    compare them to the aliases of the custom NamedBookEntity 
+    models
     """
     # loop through spacy.ent list
     for entity in entities_spacy:
@@ -170,6 +174,28 @@ def extract_entity_info(entities_spacy, entities_model, chapter):
                         int(entity.start_char), int(entity.end_char)))
                 )
     return entities_model
+
+
+def set_up_spacy(nlp, entity_model):
+    """
+    Add aliases of characters as PERSON labelled entities 
+    to Entity Ruler pipeline. Remove existing entity 
+    ruler pipeline to not create errors by using aliases
+    from other books.
+    """
+    if nlp.has_pipe("entity_ruler"):
+        nlp.remove_pipe("entity_ruler")
+    patterns = []
+    aliases_entities = [ent.aliases for ent in entity_model]
+    for aliases_entity in aliases_entities:
+        for alias in aliases_entity:
+            patterns.append({"label": "PERSON", "pattern": alias})
+    config = {
+        "overwrite_ents": True,
+    }
+    ruler = nlp.add_pipe("entity_ruler", config=config)
+    ruler.add_patterns(patterns)
+    return
 
 
 def get_list_of_filenames(folderpath):
@@ -219,7 +245,10 @@ def main():
         chapters = get_list_of_filenames(f"{book}\chapters")
         # load new NamedBookEntity from booktitkle
         entities_model = get_entities_from_book(book)
+        # set up custom entity ruler pipeline
+        set_up_spacy(nlp, entities_model)
         for chapter in chapters:
+            # read chapter from file
             chapter_text = clean_text(read_text_from_path(
                 f"{book}\chapters\{chapter}.txt"))
             # Perform NER on the text
