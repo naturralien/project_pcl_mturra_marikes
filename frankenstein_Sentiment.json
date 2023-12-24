@@ -338,7 +338,7 @@
         "joy": 0.0
       }
     },
-    "aggregated_scores": {
+    "aggregated_scores_in_chapters": {
       "fear": 1.3095238095238093,
       "anger": 1.3182539682539685,
       "anticip": 0.0,
@@ -1452,7 +1452,7 @@
         "joy": 0.0
       }
     },
-    "aggregated_scores": {
+    "aggregated_scores_in_chapters": {
       "fear": 14.704262484135862,
       "anger": 10.927931358449023,
       "anticip": 0.0,
@@ -1604,7 +1604,7 @@
         "joy": 0.0
       }
     },
-    "aggregated_scores": {
+    "aggregated_scores_in_chapters": {
       "fear": 0.75,
       "anger": 0.4734848484848485,
       "anticip": 0.0,
@@ -2799,7 +2799,7 @@
         "anticipation": 0.10526315789473684
       }
     },
-    "aggregated_scores": {
+    "aggregated_scores_in_chapters": {
       "fear": 6.389453027493083,
       "anger": 4.651562214713901,
       "anticip": 0.0,
@@ -3133,7 +3133,7 @@
         "joy": 0.0
       }
     },
-    "aggregated_scores": {
+    "aggregated_scores_in_chapters": {
       "fear": 2.5968222695776872,
       "anger": 1.6793296744535133,
       "anticip": 0.0,
@@ -3145,6 +3145,21 @@
       "disgust": 1.1641781593019982,
       "joy": 1.027364199268224,
       "anticipation": 2.06359649122807
+    }
+  },
+  "Aggregated_sentiments_for_the_full_book": {
+    "aggregated_scores": {
+      "fear": 25.75006159073044,
+      "anger": 19.05056206435525,
+      "anticip": 0.0,
+      "trust": 24.53113584003215,
+      "surprise": 5.986904544032778,
+      "positive": 39.42792482366629,
+      "negative": 43.67717266543914,
+      "sadness": 21.592572154462253,
+      "disgust": 14.651579476813554,
+      "joy": 12.663767885845505,
+      "anticipation": 18.66831895462262
     }
   }
 }

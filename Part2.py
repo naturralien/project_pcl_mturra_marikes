@@ -69,6 +69,7 @@ def main():
     # TODO: Perform sentiment analysis on the text using your chosen tool
     # For example, analyze each sentence or paragraph where entities are identified
     all_results = dict()
+    aggregated_scores_of_entire_book = dict()
 
     for main_character in entity_data:
         char_name = main_character.name
@@ -97,7 +98,7 @@ def main():
             print(f'{sentence_key}, the sentiments are: {sentiment_scores}')
             print()
 
-        #dictionary filled with sum of all scores for each emotion for the whole book
+        #dictionary filled with sum of all scores for each emotion per chapter for the whole book
         aggregated_scores = dict()
         for sentence_key, sentiment_scores in sentiment_scores_per_sentence.items():
             for emotion, score in sentiment_scores.items():
@@ -105,12 +106,22 @@ def main():
         results = {
             char_name: {
                 'sentiment_per_sentence': sentiment_scores_per_sentence,
-                'aggregated_scores': aggregated_scores
+                'aggregated_scores_in_chapters': aggregated_scores
             }
         }
 
         # Add the results for all characters to the dictionary
         all_results.update(results)
+
+    #Calculate the sentiment scores for the entire book
+    for char_name, char_data in all_results.items():
+        for emotion, score in char_data['aggregated_scores_in_chapters'].items():
+            aggregated_scores_of_entire_book[emotion] = aggregated_scores_of_entire_book.get(emotion, 0) + score
+
+        # Add the aggregated scores for the full book to the dictionary
+    all_results['Aggregated_sentiments_for_the_full_book'] = {
+        'aggregated_scores': aggregated_scores_of_entire_book
+    }
     # Save the results to a JSON file
 
     # naming newly generated json file

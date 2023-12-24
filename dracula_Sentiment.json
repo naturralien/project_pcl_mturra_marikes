@@ -383,7 +383,7 @@
         "joy": 0.0
       }
     },
-    "aggregated_scores": {
+    "aggregated_scores_in_chapters": {
       "fear": 1.7752705627705625,
       "anger": 1.6828463203463202,
       "anticip": 0.0,
@@ -4246,7 +4246,7 @@
         "joy": 0.0
       }
     },
-    "aggregated_scores": {
+    "aggregated_scores_in_chapters": {
       "fear": 17.912475401275707,
       "anger": 8.974902652387172,
       "anticip": 0.0,
@@ -7830,7 +7830,7 @@
         "joy": 0.0
       }
     },
-    "aggregated_scores": {
+    "aggregated_scores_in_chapters": {
       "fear": 15.843303707816085,
       "anger": 9.82662234995826,
       "anticip": 0.0,
@@ -10553,7 +10553,7 @@
         "anticipation": 0.125
       }
     },
-    "aggregated_scores": {
+    "aggregated_scores_in_chapters": {
       "fear": 8.83617904095566,
       "anger": 4.12510035356118,
       "anticip": 0.0,
@@ -14270,7 +14270,7 @@
         "anticipation": 0.14285714285714285
       }
     },
-    "aggregated_scores": {
+    "aggregated_scores_in_chapters": {
       "fear": 18.099925698794586,
       "anger": 10.076754379180711,
       "anticip": 0.0,
@@ -16398,7 +16398,7 @@
         "joy": 0.0
       }
     },
-    "aggregated_scores": {
+    "aggregated_scores_in_chapters": {
       "fear": 9.157783499461997,
       "anger": 5.268944596084555,
       "anticip": 0.0,
@@ -18249,7 +18249,7 @@
         "joy": 0.0
       }
     },
-    "aggregated_scores": {
+    "aggregated_scores_in_chapters": {
       "fear": 5.543422406053986,
       "anger": 2.5870327333485235,
       "anticip": 0.0,
@@ -18261,6 +18261,21 @@
       "disgust": 2.357319434951014,
       "joy": 11.160475542975544,
       "anticipation": 12.047421506368874
+    }
+  },
+  "Aggregated_sentiments_for_the_full_book": {
+    "aggregated_scores": {
+      "fear": 77.16836031712859,
+      "anger": 42.542203384866724,
+      "anticip": 0.0,
+      "trust": 134.48619433003188,
+      "surprise": 47.48855523486996,
+      "positive": 277.3339430686071,
+      "negative": 156.53118540768577,
+      "sadness": 70.5740606834404,
+      "disgust": 29.744079836114377,
+      "joy": 86.7350990976949,
+      "anticipation": 138.39631863956026
     }
   }
 }
