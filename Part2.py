@@ -105,9 +105,6 @@ def main():
     # TODO: Perform sentiment analysis on the text using your chosen tool
     # For example, analyze each sentence or paragraph where entities are identified
 
-    #sentiment_results = analyze_sentiment(text)
-    #print(sentiment_results)
-
     # Save the results to a JSON file
     Book_name = os.path.basename(args.file_path).split('.')[0].replace('_MainCharacters_NER', '')
     json_filename = f'{Book_name}_Sentiment.json'
