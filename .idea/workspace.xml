@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="686fc9a0-89e0-42da-ab0e-0e0f0671363f" name="Changes" comment="should work now, maybe I just need to add some more comments" />
+    <list default="true" id="686fc9a0-89e0-42da-ab0e-0e0f0671363f" name="Changes" comment="it seems it only creates the json file with one character from the book and not all.. need to fix that">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Part2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part2.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -179,7 +182,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703409275029</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="it seems it only creates the json file with one character from the book and not all.. need to fix that">
+      <created>1703409521895</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1703409521895</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -203,6 +213,7 @@
     <MESSAGE value="storing in json file missing" />
     <MESSAGE value="storing in json file missing, but sentiment analysis should work again" />
     <MESSAGE value="should work now, maybe I just need to add some more comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="should work now, maybe I just need to add some more comments" />
+    <MESSAGE value="it seems it only creates the json file with one character from the book and not all.. need to fix that" />
+    <option name="LAST_COMMIT_MESSAGE" value="it seems it only creates the json file with one character from the book and not all.. need to fix that" />
   </component>
 </project>

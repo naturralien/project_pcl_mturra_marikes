@@ -52,9 +52,9 @@ def save_sentiment_results(results, filename):
 def main():
 
     # TODO: Load or define the text for analysis
-    #text = "I hate you" #"Your text for sentiment analysis."
+    #text = "Your text for sentiment analysis."
     parser = argparse.ArgumentParser(description='Perform sentiment analysis on given txt file.')
-    parser.add_argument('file_path', help='Path to txt file to be analyzed.')
+    parser.add_argument('file_path', help='Path to json file to be analyzed.')
     args = parser.parse_args()
     try:
         with open(args.file_path, 'r', encoding='utf-8') as file:
@@ -64,6 +64,11 @@ def main():
         print('File not found. Please check your path and try again.')
         exit()
         return
+
+    # text = open('.txt', 'r').read()
+    # TODO: Perform sentiment analysis on the text using your chosen tool
+    # For example, analyze each sentence or paragraph where entities are identified
+    all_results = dict()
 
     for main_character in entity_data:
         char_name = main_character.name
@@ -79,7 +84,8 @@ def main():
 
             # Analyze the sentiment of the sentence
             sentence_sentiments, _ = analyze_sentiment(occurrence.sentence)
-            sentence_key = f'For {chapter_key}, Sentence: \'{occurrence.sentence}\'' #added
+            # Add the sentiment scores to the dictionary
+            sentence_key = f'For {chapter_key}, Sentence: \'{occurrence.sentence}\''
             sentiment_scores_per_sentence[sentence_key] = sentence_sentiments
 
             for sentence_num, (key, sentiment_scores) in enumerate(sentiment_scores_per_sentence.items(), start=1):
@@ -91,6 +97,7 @@ def main():
             print(f'{sentence_key}, the sentiments are: {sentiment_scores}')
             print()
 
+        #dictionary filled with sum of all scores for each emotion for the whole book
         aggregated_scores = dict()
         for sentence_key, sentiment_scores in sentiment_scores_per_sentence.items():
             for emotion, score in sentiment_scores.items():
@@ -101,15 +108,19 @@ def main():
                 'aggregated_scores': aggregated_scores
             }
         }
-    #text = open('.txt', 'r').read()
-    # TODO: Perform sentiment analysis on the text using your chosen tool
-    # For example, analyze each sentence or paragraph where entities are identified
 
+        # Add the results for all characters to the dictionary
+        all_results.update(results)
     # Save the results to a JSON file
-    Book_name = os.path.basename(args.file_path).split('.')[0].replace('_MainCharacters_NER', '')
-    json_filename = f'{Book_name}_Sentiment.json'
-    save_sentiment_results(results, json_filename )
+
+    # naming newly generated json file
+    book_name = os.path.basename(args.file_path).split('.')[0].replace('_MainCharacters_NER', '')
+
     # Example filename: 'BookTitle_Sentiment.json'
+    json_filename = f'{book_name}_Sentiment.json'
+
+    # saving results to json file
+    save_sentiment_results(all_results, json_filename)
 
 
 # Run the main function
