@@ -1,0 +1,32 @@
+ a) Learning and Challenges
+ • Comparing the results of grep and the more in-depth NLP analysis, what are the key insights?
+
+
+
+
+ • You were asked to visualise both methods. How do they differ?
+
+
+
+
+ • Summarize key learnings, focusing on technical skills and literary insights.
+
+
+
+ • Briefly discuss major challenges and how you addressed them, particularly moving from basic
+ grep searches to advanced NLP.
+
+
+
+
+
+ b) Analysis Insights and Real-World Applicability
+ • Describe significant insights from the book analysis and how advanced NLP tools enhanced
+ your initial grep findings.
+
+
+
+
+
+ • Reflect on how these techniques and insights could apply in real-world contexts, like social
+ media analysis or other literary works.

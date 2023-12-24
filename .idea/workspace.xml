@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="686fc9a0-89e0-42da-ab0e-0e0f0671363f" name="Changes" comment="should work for all entities now">
+    <list default="true" id="686fc9a0-89e0-42da-ab0e-0e0f0671363f" name="Changes" comment="should compute aggregated scores for the entire book now">
+      <change beforePath="$PROJECT_DIR$/.idea/project_pcl_mturra_marikes.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/project_pcl_mturra_marikes.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DrJekyllAndMrHyde_Sentiment.json" beforeDir="false" afterPath="$PROJECT_DIR$/DrJekyllAndMrHyde_Sentiment.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Part2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dracula_Sentiment.json" beforeDir="false" afterPath="$PROJECT_DIR$/dracula_Sentiment.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frankenstein_Sentiment.json" beforeDir="false" afterPath="$PROJECT_DIR$/frankenstein_Sentiment.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Part3.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Part3.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/text_output.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,19 +30,36 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
   <component name="ProjectId" id="2ZGCViI8j4Gnl12lpLidKAHopSq" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/marie/Documents/HS2023/PCL1/Dracula_Eval&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "TODO_SCOPE": "All Places",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/marie/Documents/HS2023/PCL1/project_pcl_mturra_marikes",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-python-sdk-50da183f06c8-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13135.95" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -51,6 +68,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702039057040</updated>
+      <workItem from="1703416018417" duration="916000" />
     </task>
     <task id="LOCAL-00001" summary="Added some comments and doc strings and should be possible to get the text without /n">
       <created>1702119861020</created>
@@ -199,8 +217,18 @@
       <option name="project" value="LOCAL" />
       <updated>1703412397981</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="should compute aggregated scores for the entire book now">
+      <created>1703414474667</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1703414474667</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -225,6 +253,7 @@
     <MESSAGE value="should work now, maybe I just need to add some more comments" />
     <MESSAGE value="it seems it only creates the json file with one character from the book and not all.. need to fix that" />
     <MESSAGE value="should work for all entities now" />
-    <option name="LAST_COMMIT_MESSAGE" value="should work for all entities now" />
+    <MESSAGE value="should compute aggregated scores for the entire book now" />
+    <option name="LAST_COMMIT_MESSAGE" value="should compute aggregated scores for the entire book now" />
   </component>
 </project>
