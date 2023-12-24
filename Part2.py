@@ -41,32 +41,9 @@ def analyze_sentiment(text, analyzer=None):
 
 # Function to save sentiment analysis results to a JSON file
 def save_sentiment_results(results, filename):
-
     # TODO: Save the sentiment analysis results in a structured JSON format
-    sentiments = {}
-    for main_character in results:
-        char_name = main_character.name
-        sentiment_scores_per_sentence = {}
-        for occurrence in main_character.Occurrences:
-            chapter_key = tuple(occurrence.chapter)
-            sentence_sentiments, _ = analyze_sentiment(occurrence.sentence)
-            sentence_key = f'Chapter {chapter_key}: Sentence: \"{occurrence.sentence}\"'
-            sentiment_scores_per_sentence[sentence_key] = sentence_sentiments
-
-        # Aggregate sentiment scores over chapters
-        aggregated_scores = {}
-        for sentence_key, sentiment_scores in sentiment_scores_per_sentence.items():
-            for emotion, score in sentiment_scores.items():
-                aggregated_scores[emotion] = aggregated_scores.get(emotion, 0) + score
-
-        # Save sentiment scores for the entity
-        results[char_name] = {
-            'sentiments_per_sentence': sentiment_scores_per_sentence,
-            'aggregated_scores': aggregated_scores
-        }
-
-    with open(filename, 'w', encoding='utf-8') as output_file:
-        json.dump(results, output_file, indent=2, ensure_ascii=False)
+    with open(filename, 'w') as output_file:
+        json.dump(results, output_file, indent=2)
     #pass
 
 
@@ -80,11 +57,8 @@ def main():
     args = parser.parse_args()
     try:
         with open(args.file_path, 'r', encoding='utf-8') as file:
-            text = file.read()
+            text = json.load(file)
             entity_data = json.loads(text, object_hook=lambda d: SimpleNamespace(**d))
-
-        if not isinstance(entity_data, list):
-            raise TypeError('The file does not contain a list of entities.')
     except FileNotFoundError:
         print('File not found. Please check your path and try again.')
         exit()
@@ -92,12 +66,13 @@ def main():
 
     for main_character in entity_data:
         char_name = main_character.name
-        #occurrence_per_chapter = dict()
+        occurrence_per_chapter = dict()
         sentiment_scores_per_sentence = dict()
 
         #print(f'Analyzing sentiment for {char_name}')
 
         for occurrence in main_character.Occurrences:
+
             # converting it to tuple because list is not hashable
             chapter_key = tuple(occurrence.chapter)
 
@@ -105,9 +80,9 @@ def main():
             sentence_sentiments, _ = analyze_sentiment(occurrence.sentence)
             sentence_key = f'For {chapter_key}, Sentence: \'{occurrence.sentence}\'' #added
             sentiment_scores_per_sentence[sentence_key] = sentence_sentiments
-            #for sentence_num, (key, sentiment_scores) in enumerate(sentiment_scores_per_sentence.items(), start=1):
+            for sentence_num, (key, sentiment_scores) in enumerate(sentiment_scores_per_sentence.items(), start=1):
                 #for easier reading
-            #    print()
+                print()
         print(f'The sentiment scores associated with {char_name} are:')
         for sentence_key, sentiment_scores in sentiment_scores_per_sentence.items(): #changed list to scores
 
