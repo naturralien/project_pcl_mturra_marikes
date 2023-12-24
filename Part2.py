@@ -41,8 +41,9 @@ def analyze_sentiment(text, analyzer=None):
 
 # Function to save sentiment analysis results to a JSON file
 def save_sentiment_results(results, filename):
-    # TODO: Save the sentiment analysis results in a structured JSON format
-    with open(filename, 'w') as output_file:
+    # TODO: Save the sentiment analysis results in a structured JSON format:
+
+    with open(filename, 'w', encoding='utf-8') as output_file:
         json.dump(results, output_file, indent=2)
     #pass
 
@@ -80,15 +81,26 @@ def main():
             sentence_sentiments, _ = analyze_sentiment(occurrence.sentence)
             sentence_key = f'For {chapter_key}, Sentence: \'{occurrence.sentence}\'' #added
             sentiment_scores_per_sentence[sentence_key] = sentence_sentiments
+
             for sentence_num, (key, sentiment_scores) in enumerate(sentiment_scores_per_sentence.items(), start=1):
-                #for easier reading
+                # for easier reading
                 print()
         print(f'The sentiment scores associated with {char_name} are:')
-        for sentence_key, sentiment_scores in sentiment_scores_per_sentence.items(): #changed list to scores
+        for sentence_key, sentiment_scores in sentiment_scores_per_sentence.items():  # changed list to scores
 
             print(f'{sentence_key}, the sentiments are: {sentiment_scores}')
             print()
 
+        aggregated_scores = dict()
+        for sentence_key, sentiment_scores in sentiment_scores_per_sentence.items():
+            for emotion, score in sentiment_scores.items():
+                aggregated_scores[emotion] = aggregated_scores.get(emotion, 0) + score
+        results = {
+            char_name: {
+                'sentiment_per_sentence': sentiment_scores_per_sentence,
+                'aggregated_scores': aggregated_scores
+            }
+        }
     #text = open('.txt', 'r').read()
     # TODO: Perform sentiment analysis on the text using your chosen tool
     # For example, analyze each sentence or paragraph where entities are identified
@@ -99,7 +111,7 @@ def main():
     # Save the results to a JSON file
     Book_name = os.path.basename(args.file_path).split('.')[0].replace('_MainCharacters_NER', '')
     json_filename = f'{Book_name}_Sentiment.json'
-    save_sentiment_results(json_filename, sentiment_scores_per_sentence)
+    save_sentiment_results(results, json_filename )
     # Example filename: 'BookTitle_Sentiment.json'
 
 

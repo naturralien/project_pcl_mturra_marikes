@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="686fc9a0-89e0-42da-ab0e-0e0f0671363f" name="Changes" comment="storing in json file missing">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="686fc9a0-89e0-42da-ab0e-0e0f0671363f" name="Changes" comment="storing in json file missing, but sentiment analysis should work again">
       <change beforePath="$PROJECT_DIR$/Part2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -161,7 +160,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703374074001</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="storing in json file missing, but sentiment analysis should work again">
+      <created>1703408324092</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1703408324092</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -183,6 +189,7 @@
     <MESSAGE value="storing in json file missing, need to update some features and delte some useless code." />
     <MESSAGE value="storing in json file missing, need to update the print result" />
     <MESSAGE value="storing in json file missing" />
-    <option name="LAST_COMMIT_MESSAGE" value="storing in json file missing" />
+    <MESSAGE value="storing in json file missing, but sentiment analysis should work again" />
+    <option name="LAST_COMMIT_MESSAGE" value="storing in json file missing, but sentiment analysis should work again" />
   </component>
 </project>
