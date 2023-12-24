@@ -17,9 +17,10 @@ def json_conversion(data):
 
     # list to store words
     result_data = []
+    
     # to get the individual words as dictionary in sentiment file
-
     print("Data before processing: ", data)
+    
     for content in data:
         words = content.strip().split(',')
         result_data.extend([{'PROPN': word} for word in words])

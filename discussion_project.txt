@@ -1,7 +1,11 @@
  a) Learning and Challenges
  • Comparing the results of grep and the more in-depth NLP analysis, what are the key insights?
 
-
+    Due to time constraints and because the lecture material didnt equip us with the skills to dynamically identitfy Named Entities and aliases (without heavily relying on ChatGPT),
+    both our grep and NLP solutions are based on a static list of aliases (therefore strings). However spacy for example provides us programmers with endless possibilities
+    to built upon the initial identification process. From the doc object, we can extract sentences, entitites and other valuable information. Grep only allows superficial analysis
+    and is limited in its functionality in the sense that everything that is achievable with grep can be implemented with better readibility, debugging functionalities and many other
+    advantages.,
 
 
  • You were asked to visualise both methods. How do they differ?
@@ -11,12 +15,24 @@
 
  • Summarize key learnings, focusing on technical skills and literary insights.
 
+    Working with spacy (which unfortunately was not covered in lectures as thrououghly as we had hoped): creating and adapting pipelines, filtering through doc.ents, 
+    extract sents from every entity found.
+    Displaying data in diagrams.
+    Writing and reading JSON files.
+    Using custom model classes to create clearer code.
+    Working with documentation e.g. https://spacy.io/api/entityruler/
+    Using ChatGPT to improve code, find bugs and add comments.
 
 
  • Briefly discuss major challenges and how you addressed them, particularly moving from basic
  grep searches to advanced NLP.
 
+    Using the limited UNIX functionalities to create what was expected in part 0 of the exercise. We fiddled with bash to speed up the process and generate the files needed. 
+    
+    Working together in a repository, because we couldnt work together anymore. We managed to setup git rather swiftly together in class. 
 
+    Writing data to JSON. We used differing approaches. Mattia found a Custom Encoder Class on StackOverflow so that his custom classes could be turned into JSON format. 
+    He also had to import a package so that his custom class could be read and parsed in an efficient manner. 
 
 
 
@@ -24,9 +40,12 @@
  • Describe significant insights from the book analysis and how advanced NLP tools enhanced
  your initial grep findings.
 
-
+    NLP tools give us many useful use cases. For example, we can extract the sentence from the occurrence of a name (or any other entity by that matter). Or we can get the sentiments
+    from sentences and use the varying identified sentiments for further processing. 
 
 
 
  • Reflect on how these techniques and insights could apply in real-world contexts, like social
  media analysis or other literary works.
+
+    When 

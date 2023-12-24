@@ -147,15 +147,22 @@ def strip_headers(text):
 #### MODIFY HERE ####
 import re
 
-def write_chapter_to_file(chapter_name, chapter_text,book_title):
+def write_chapter_to_file(chapter_name:str, chapter_text:str,book_title:str):
+    """
+    Create folder with book title and create a subfolder for chapters, in which    
+    txt files for all chapters are created
+    """
+    #replace whitespace with underscore in chapter name
     chapter_name = chapter_name.replace(" ","_")
+    #create directory if it doesnt already exist
     if not os.path.exists(f"{book_title}/chapters"):
         os.makedirs(f"{book_title}/chapters")
+    #write text of chapter to file
     with open(f"{book_title}/chapters/{chapter_name}.txt","w",encoding="utf8") as file:
         file.writelines(chapter_text)
         
 
-def get_chapter_list_of_book(book_lines, chapter_markers, content_headers, book_title) -> dict():
+def get_chapter_list_of_book(book_lines: list[str], chapter_markers: tuple[str], content_headers: tuple[str], book_title: str) -> dict():
     """
     Creates dictionary from book text split into list of strings at newline. 
     
@@ -192,7 +199,7 @@ def get_chapter_list_of_book(book_lines, chapter_markers, content_headers, book_
     #return chapter name index dict
     return chapter_name_index_map 
 
-def split_book_by_chapter(cleaned_text, book_title):
+def split_book_by_chapter(cleaned_text:str, book_title:str):
     """
     Implement a function that splits the book into chapters and saves 
     each chapter in a separate file in a folder named after the book title.
@@ -207,16 +214,19 @@ def split_book_by_chapter(cleaned_text, book_title):
     #call function to get chapter list
     chapter_list = get_chapter_list_of_book(segments,chapter_markers, content_headers, book_title)
 
-    #chapter indexer because smart me decided to rewrite the function and now I need to index the chapters the first time to prevent the content list from being identified as chapters 
+    #chapter indexer because past mattia decided to rewrite the function and now we need to index the chapters the first time to prevent the content list from being identified as chapters 
     chapter_indexer = []
 
     #iterate through book
     for i in range(len(segments)):
         #identify chapter markers
         if segments[i] in chapter_list:
+            #check if indexer does not contain chapter marker 
             if segments[i] not in chapter_indexer:
+                #add chapter to indexer
                 chapter_indexer.append(segments[i])
             else:
+                #add chapter limit marker for splitting
                 segments[i] = "[CHAPTER_LIMIT]" + segments[i]
 
     #rejoin text with chapter limit markers
@@ -227,10 +237,11 @@ def split_book_by_chapter(cleaned_text, book_title):
     chapters.pop(0)
     #write each chapter to a seperate file
     for chapter_name, index in chapter_list.items():
+        #call function to write chapter to file 
         write_chapter_to_file(f"Chapter {index + 1}", chapters[index], book_title)
     return
 
-def create_book_folder(path, bookname) -> str:
+def create_book_folder(path: str, bookname: str) -> str:
     """
     Function that takes a path and a bookname as arguments and creates a folder named after the bookname
     """
@@ -239,12 +250,13 @@ def create_book_folder(path, bookname) -> str:
         path = sys.argv[0]
     # ensures that path ends with a backslash
     path_folder = path + "\\" + bookname
+    #create folder if it doesnt already exist
     if not os.path.exists(path_folder):
         os.makedirs(path_folder)
     return path_folder
 
 
-def write_whole_text_to_file(text, path):
+def write_whole_text_to_file(text: str, path: str):
     """
     Function that takes a text and a path as arguments and writes it to a file called content.txt
     """
@@ -267,6 +279,7 @@ def write_whole_text_to_file(text, path):
     f.close() # close file
 
 def main():
+    #IMPORTANT: file path of text file in folder Books needs to be passed as an argument
     # insures that there are two command line arguments if not the program exits
     if len(sys.argv) != 2:
         print("Usage: python gutenberg_cleanup.py <path_to_book_file>")

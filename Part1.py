@@ -23,6 +23,9 @@ class CustomEncoder(json.JSONEncoder):
     """
 
     def default(self, obj):
+        """
+            Check if class has json attribute and return said obj string if exists
+        """
         if hasattr(obj, '__json__'):
             return obj.__json__()
         return json.JSONEncoder.default(self, obj)
@@ -35,11 +38,14 @@ class Position:
     end: int 
     """
 
-    def __init__(self, start, end):
+    def __init__(self, start: int, end: int):
         self.start = start
         self.end = end
 
     def __json__(self):
+        """
+        Create json-formatted string (needed because class is custom) 
+        """
         return {'start': self.start, 'end': self.end}
 
 
@@ -51,12 +57,18 @@ class Occurrence:
     boundaries: Position
     """
 
-    def __init__(self, sentence, chapter, boundaries):
+    def __init__(self, sentence: str, chapter: str, boundaries: Position):
+        """
+        Initialise Occurrence
+        """
         self.sentence = sentence
         self.chapter = chapter,
         self.boundaries = boundaries
 
     def __json__(self):
+        """
+        Create json-formatted string (needed because class is custom) 
+        """
         return {'sentence': self.sentence, 'chapter': self.chapter, 'Position': self.boundaries}
 
 
@@ -68,21 +80,28 @@ class NamedBookEntity:
     Occurrences: Occurrence[]
     """
 
-    def __init__(self, name, aliases, occurrences):
+    def __init__(self, name: str, aliases: list[str], occurrences: list[Occurrence]):
+        """
+        Initialise Named Entity
+        """
         self.name = name
         self.aliases = aliases
         self.occurrences = occurrences
 
     def __json__(self):
+        """
+        Create json-formatted string (needed because class is custom) 
+        """
         return {'name': self.name, 'aliases': self.aliases, 'Occurrences': self.occurrences}
 
 
-def get_entities_from_book(booktitle):
+def get_entities_from_book(booktitle:str) -> list[NamedBookEntity]:
     """
         Creates entities for a specific book
         Returns a list of static entities (the main characters)
     """
     entities = list()
+    # create list of NamedBookEntity instances with static aliases
     if booktitle == "DrJekyllAndMrHyde":
         entities.extend(
             [NamedBookEntity("Gabriel John Utterson", ["Gabriel", "Gabriel John Utterson", "Utterson", "Mr. Utterson"], list()),
@@ -125,15 +144,19 @@ def get_entities_from_book(booktitle):
                              "boyhood friend", "Henry", "Cleval", "Henry Cleval"], list())
              ]
         )
+    # return list
     return entities
 
 
-def clean_text(text):
+def clean_text(text: str) -> str:
+    """
+    Remove escaped new lines and add white spaces to text
+    """
     text = text.replace("\n\n", " ")
     return text
 
 
-def read_text_from_path(path):
+def read_text_from_path(path: str) -> str:
     """
     Reads text from filepath and converts it into one string
     """
@@ -145,22 +168,24 @@ def read_text_from_path(path):
 # Function to process the text and perform NER
 
 
-def perform_ner(text, spacy_model):
+def perform_ner(text: str, spacy_model: spacy.language.Language) -> list[spacy.ent]:
     """
-    Create spacy.doc from text and extract all PERSON labelled entities
+    Create spacy.doc from chapter text and extract all PERSON labelled entities
     """
-    # feed chapter text into spacy
+    # create spacy.doc by feeding chapter text into spacy
     doc = spacy_model(text)
     # return all PERSON labelled entites
     return [ent for ent in doc.ents if ent.label_ == "PERSON"]
 
 
 # Function to extract and structure entity information
-def extract_entity_info(entities_spacy, entities_model, chapter):
+def extract_entity_info(entities_spacy: list[spacy.ent], entities_model: list[NamedBookEntity], chapter: str) -> list[NamedBookEntity]:
     """
     Sieve through all PERSON labelled entities from spacy and
     compare them to the aliases of the custom NamedBookEntity 
-    models
+    models.
+    Return list of custom NamedBookEntity class with all occurrences
+    of each character
     """
     # loop through spacy.ent list
     for entity in entities_spacy:
@@ -176,29 +201,45 @@ def extract_entity_info(entities_spacy, entities_model, chapter):
     return entities_model
 
 
-def set_up_spacy(nlp, entity_model):
+def set_up_spacy(nlp:Language, entity_model:NamedBookEntity) -> Language:
     """
     Add aliases of characters as PERSON labelled entities 
     to Entity Ruler pipeline. Remove existing entity 
     ruler pipeline to not create errors by using aliases
     from other books.
     """
+    # Check if 'entity_ruler' component exists in pipeline.
     if nlp.has_pipe("entity_ruler"):
+        # If it exists, remove it to avoid conflicts
         nlp.remove_pipe("entity_ruler")
+
+    # Initialise an empty list to store the patterns.
     patterns = []
+
+    # This loop extracts all aliases for each entity.
     aliases_entities = [ent.aliases for ent in entity_model]
     for aliases_entity in aliases_entities:
         for alias in aliases_entity:
+            # For each alias, create a pattern dictionary with the label 'PERSON' and the actual alias.
+            # These patterns will be used to identify entities in the text.
             patterns.append({"label": "PERSON", "pattern": alias})
+
+    # according to documentation, this config overwrites entities recognized by other components
     config = {
         "overwrite_ents": True,
     }
+
+    # Add new 'entity_ruler' component to pipeline to add custom entities of book.
     ruler = nlp.add_pipe("entity_ruler", config=config)
+
+    # Add patterns to the entity ruler.
     ruler.add_patterns(patterns)
+
+    # Return  pipeline with new entity ruler component.
     return nlp
 
 
-def get_list_of_filenames(folderpath):
+def get_list_of_filenames(folderpath:str) -> list[str]:
     """
     Loads books from provided folder by splitting file names of .txts
     """
@@ -218,7 +259,7 @@ def get_list_of_filenames(folderpath):
 # Function to save data to JSON file
 
 
-def save_to_json(data, filename):
+def save_to_json(data:list[NamedBookEntity], filename:str):
     """
     Saves entity data to json file using CustomEncoder to encode the customs classes
     """
