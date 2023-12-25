@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="686fc9a0-89e0-42da-ab0e-0e0f0671363f" name="Changes" comment="should compute aggregated scores for the entire book now">
-      <change beforePath="$PROJECT_DIR$/.idea/project_pcl_mturra_marikes.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/project_pcl_mturra_marikes.iml" afterDir="false" />
+    <list default="true" id="686fc9a0-89e0-42da-ab0e-0e0f0671363f" name="Changes" comment="added part 4 txt file and feedback txt file">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DrJekyllAndMrHyde_Sentiment.json" beforeDir="false" afterPath="$PROJECT_DIR$/DrJekyllAndMrHyde_Sentiment.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Part2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Part3.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Part3.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/text.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/text_output.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dracula_Sentiment.json" beforeDir="false" afterPath="$PROJECT_DIR$/dracula_Sentiment.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frankenstein_Sentiment.json" beforeDir="false" afterPath="$PROJECT_DIR$/frankenstein_Sentiment.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,32 +28,47 @@
     <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "mari5899"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="ca9d861b-412f-4926-961e-1439d004517e" />
+        <option name="url" value="https://github.com/naturralien/project_pcl_mturra_marikes.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2ZGCViI8j4Gnl12lpLidKAHopSq" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "TODO_SCOPE": "All Places",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/marie/Documents/HS2023/PCL1/project_pcl_mturra_marikes",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;TODO_SCOPE&quot;: &quot;All Places&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/marie/Documents/HS2023/PCL1/project_pcl_mturra_marikes&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -68,7 +84,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702039057040</updated>
-      <workItem from="1703416018417" duration="916000" />
+      <workItem from="1703416018417" duration="1445000" />
+      <workItem from="1703495991426" duration="9631000" />
     </task>
     <task id="LOCAL-00001" summary="Added some comments and doc strings and should be possible to get the text without /n">
       <created>1702119861020</created>
@@ -224,7 +241,15 @@
       <option name="project" value="LOCAL" />
       <updated>1703414474667</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="added part 4 txt file and feedback txt file">
+      <option name="closed" value="true" />
+      <created>1703417142777</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1703417142777</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,6 +279,7 @@
     <MESSAGE value="it seems it only creates the json file with one character from the book and not all.. need to fix that" />
     <MESSAGE value="should work for all entities now" />
     <MESSAGE value="should compute aggregated scores for the entire book now" />
-    <option name="LAST_COMMIT_MESSAGE" value="should compute aggregated scores for the entire book now" />
+    <MESSAGE value="added part 4 txt file and feedback txt file" />
+    <option name="LAST_COMMIT_MESSAGE" value="added part 4 txt file and feedback txt file" />
   </component>
 </project>
