@@ -1,8 +1,10 @@
 Mattia: With all due respect, while it covered some interesting topics, I will primarily remember the project as a tedium. A lot of its content was not covered sufficiently
-in our lectures and while our tutors did a good job in the sessions on friday, it stil felt like we were ill-prepared for this task. The workload was also high, and the assigment
-day was set on the 26th of December, which, quite frankly, is bordering on sadism. 
-Not to say that all was in vain. Working with Spacy was very interesting (which is why I struggle to understand the focus on nltk in lectures),
-the splitting of the book into chapters was tricky, but rewarding and getting to know applied NER and sentiment analysis was very exciting too.
+in our lectures and while our tutors did a good job in the sessions on friday, it stil felt like we were ill-prepared for this task. The workload was also high (which is completely 
+understandable), and the assigment day was set to the 26th of December, which is, quite frankly, unfortunate for us students. 
+Not to say that all was bad or in vain. Working with Spacy was very interesting (I would have loved to look at it more in our lectures, especially code examples),
+the splitting of the book into chapters was a tricky, but rewarding task and getting to know applied NER and sentiment analysis was very exciting too.
 But as I said above, I find it likely that the (in my subjective opinion) lack of connection between the lectures and this exercise led to many students being overwhelmed and having to
-rely on ChatGPT in order to achieve a satisfactory solution. 
-To summarise, while I found some aspects of the exercise are to be criticised, I still think that I could take away a decent amount of learnings from the project.
+rely on ChatGPT as well as intense support from the tutors in order to achieve a satisfactory solution. In my humble opinion, this could have been done in a better way. 
+To summarise, while in my opinion some aspects of the exercise are to be criticised, I still think that I could take away a decent amount of learnings from the project. Also, I am 
+content with what Mariela and I achieved as a team.
+

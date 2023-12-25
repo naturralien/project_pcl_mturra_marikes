@@ -1,11 +1,11 @@
  a) Learning and Challenges
  • Comparing the results of grep and the more in-depth NLP analysis, what are the key insights?
 
-    Due to time constraints and because the lecture material didnt equip us with the skills to dynamically identitfy Named Entities and aliases (without heavily relying on ChatGPT),
-    both our grep and NLP solutions are based on a static list of aliases (therefore strings). However spacy for example provides us programmers with endless possibilities
-    to built upon the initial identification process. From the doc object, we can extract sentences, entitites and other valuable information. Grep only allows superficial analysis
-    and is limited in its functionality in the sense that everything that is achievable with grep can be implemented with better readibility, debugging functionalities and many other
-    advantages.,
+    Due to time constraints and because we didnt feel that the lecture material equipped us with the skills to dynamically identitfy Named Entities and aliases (without heavily 
+    relying on ChatGPT), both our grep and NLP solutions are based on a static list of aliases (therefore strings). However spacy for example provides us programmers with endless 
+    possibilities to built upon the initial identification process. From the doc object, we can extract sentences, entitites and other valuable information. Grep only allows superficial analysis
+    analysis and is comparatively limited in its functionality, in the sense that everything that is achievable with grep can be implemented with better readibility, 
+    debugging functionalities and many other advantages with a NLP tool and python.
 
 
  • You were asked to visualise both methods. How do they differ?
@@ -15,11 +15,12 @@
 
  • Summarize key learnings, focusing on technical skills and literary insights.
 
-    Working with spacy (which unfortunately was not covered in lectures as thrououghly as we had hoped): creating and adapting pipelines, filtering through doc.ents, 
+    Working with spacy: creating and adapting pipelines, filtering through doc.ents, 
     extract sents from every entity found.
     Displaying data in diagrams.
     Writing and reading JSON files.
     Using custom model classes to create clearer code.
+    Getting over the hurdle of having to serialise a custom class object.
     Working with documentation e.g. https://spacy.io/api/entityruler/
     Using ChatGPT to improve code, find bugs and add comments.
 
@@ -27,7 +28,10 @@
  • Briefly discuss major challenges and how you addressed them, particularly moving from basic
  grep searches to advanced NLP.
 
-    Using the limited UNIX functionalities to create what was expected in part 0 of the exercise. We fiddled with bash to speed up the process and generate the files needed. 
+    Having two very different schedules. We decided to mostly communicate via chat and keep each other up to date on our process. If needes, we exchanged code snippets and sent each other error messagges etc.
+
+    Using the limited UNIX functionalities to create what was expected in part 0 of the exercise. We both found the task to be rather tricky in the beginning, and generating eevry file by hand was not going
+    to fly. We fiddled with bash and managed to implement a solution that would speed up the process immensely by dynamically generating the files needed. 
     
     Working together in a repository, because we couldnt work together anymore. We managed to setup git rather swiftly together in class. 
 
@@ -48,4 +52,6 @@
  • Reflect on how these techniques and insights could apply in real-world contexts, like social
  media analysis or other literary works.
 
-    When 
+    The first thing that comes to mind using NER and sentiment analysis would probably be hate speech analysis, especially regarding public figures. One could also analyse the reporting
+    on various political candidates or how they were perceived e.g. on social media, newspapers, blogs etc. 
+    With a bit more polishing, one could try to implement an algorith that detects villains and heroes in fiction. 
