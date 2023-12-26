@@ -1,11 +1,14 @@
  a) Learning and Challenges
  • Comparing the results of grep and the more in-depth NLP analysis, what are the key insights?
 
-    Due to time constraints and because we didnt feel that the lecture material equipped us with the skills to dynamically identitfy Named Entities and aliases (without heavily 
-    relying on ChatGPT), both our grep and NLP solutions are based on a static list of aliases (therefore strings). However spacy for example provides us programmers with endless 
-    possibilities to built upon the initial identification process. From the doc object, we can extract sentences, entitites and other valuable information. Grep only allows superficial analysis
-    analysis and is comparatively limited in its functionality, in the sense that everything that is achievable with grep can be implemented with better readibility, 
-    debugging functionalities and many other advantages with a NLP tool and python.
+    Due to time constraints and because we didn't feel that the lecture material equipped us with the skills to dynamically identify Named Entities and aliases (without heavily
+    relying on ChatGPT), both our grep and NLP solutions are based on a static list of aliases (therefore strings). However, spacy for example provides us programmers with endless
+    possibilities to built upon the initial identification process. From the doc object, we can extract sentences, entities and other valuable information. Grep only allows superficial
+    analysis and is comparatively limited in its functionality, in the sense that everything that is achievable with grep can be implemented with better readability,
+    debugging functionalities and many other advantages with a NLP tool and python. Also, for the sentiments we could only extract adjectives to get a rough feeling about the sentiment, but
+    since the books were not tagged with POS-tags it was even a bit more challenging to get all sentiments. Grep would not provide us with any percentual measure of the sentiments, in that
+    sense working with specialised NLP tools for sentiment analysis is a lot more detailed. It is to be noted that the right tool has to be used depending on the purpose. Some NLP tools do not offer
+    services for other languages apart from English, in that sense Grep would be more flexible as you can look for words using Regex.
 
 
  • You were asked to visualise both methods. How do they differ?
@@ -15,25 +18,24 @@
 
  • Summarize key learnings, focusing on technical skills and literary insights.
 
-    Working with spacy: creating and adapting pipelines, filtering through doc.ents, 
-    extract sents from every entity found.
-    Displaying data in diagrams.
+    Working with spacy: creating and adapting pipelines, filtering through doc.ents.
+    Working with NRCLex to extract sentiments of chapters from every entity found and sentiment of the entire book.
+    Displaying data in diagrams using Seaborn and Pandas.
     Writing and reading JSON files.
     Using custom model classes to create clearer code.
     Getting over the hurdle of having to serialise a custom class object.
     Working with documentation e.g. https://spacy.io/api/entityruler/
     Using ChatGPT to improve code, find bugs and add comments.
 
-
  • Briefly discuss major challenges and how you addressed them, particularly moving from basic
  grep searches to advanced NLP.
 
-    Having two very different schedules. We decided to mostly communicate via chat and keep each other up to date on our process. If needes, we exchanged code snippets and sent each other error messagges etc.
+    Having two very different schedules. We decided to mostly communicate via chat and keep each other up to date on our process. If needed, we exchanged code snippets and sent each other error messages etc.
 
-    Using the limited UNIX functionalities to create what was expected in part 0 of the exercise. We both found the task to be rather tricky in the beginning, and generating eevry file by hand was not going
+    Using the limited UNIX functionalities to create what was expected in part 0 of the exercise. We both found the task to be rather tricky in the beginning, and generating every file by hand was not going
     to fly. We fiddled with bash and managed to implement a solution that would speed up the process immensely by dynamically generating the files needed. 
     
-    Working together in a repository, because we couldnt work together anymore. We managed to setup git rather swiftly together in class. 
+    Working together in a repository, because we couldn't work together anymore. We managed to set up git rather swiftly together in class.
 
     Writing data to JSON. We used differing approaches. Mattia found a Custom Encoder Class on StackOverflow so that his custom classes could be turned into JSON format. 
     He also had to import a package so that his custom class could be read and parsed in an efficient manner. 
@@ -45,7 +47,10 @@
  your initial grep findings.
 
     NLP tools give us many useful use cases. For example, we can extract the sentence from the occurrence of a name (or any other entity by that matter). Or we can get the sentiments
-    from sentences and use the varying identified sentiments for further processing. 
+    from sentences and use the varying identified sentiments for further processing. As mentioned above, our initial findings for sentiments using Grep were based on the typical word types used
+    to describe sentiments, like adjectives. We had to think about the characteristics and extract them from the text which was a bit time-consuming. It also did not ensure that we hadn't missed
+    a word. Using NRLex the sentiments we could extract were also in a way limited as it focuses solely on English and uses a certain vocabulary. NLP tools also provided a more detailed solution
+    to the sentiments found in the text.
 
 
 

@@ -1,5 +1,5 @@
 Mattia: With all due respect, while it covered some interesting topics, I will primarily remember the project as a tedium. A lot of its content was not covered sufficiently
-in our lectures and while our tutors did a good job in the sessions on friday, it stil felt like we were ill-prepared for this task. The workload was also high (which is completely 
+in our lectures and while our tutors did a good job in the sessions on friday, it still felt like we were ill-prepared for this task. The workload was also high (which is completely
 understandable), and the assigment day was set to the 26th of December, which is, quite frankly, unfortunate for us students. 
 Not to say that all was bad or in vain. Working with Spacy was very interesting (I would have loved to look at it more in our lectures, especially code examples),
 the splitting of the book into chapters was a tricky, but rewarding task and getting to know applied NER and sentiment analysis was very exciting too.
@@ -8,3 +8,7 @@ rely on ChatGPT as well as intense support from the tutors in order to achieve a
 To summarise, while in my opinion some aspects of the exercise are to be criticised, I still think that I could take away a decent amount of learnings from the project. Also, I am 
 content with what Mariela and I achieved as a team.
 
+Mariela: In general I also found the project to be interesting and in theory it was nice to get some hands-on experience working on a larger scaled project using NLP tools. The workload was just a bit too high also considering
+the exam we also need to prepare for which does not involve any coding. Part 0 was a bit tedious to solve, I would have liked some more examples maybe because I struggled a bit with the part were we had
+to extract sentiments when the books weren't previously tagged in any sort of way. Maybe it would be more beneficial to make more subtasks where students are guided through the exercise. I think the learning experience
+would probably be much better that way as I don't think I could have solved those tasks without relying on ChatGPT's help and I do not believe that this the goal of this project.
