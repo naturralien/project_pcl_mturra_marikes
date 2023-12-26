@@ -12,7 +12,13 @@
 
 
  • You were asked to visualise both methods. How do they differ?
-
+    The grep results differed from the NLP tools results in that they were not as detailed. While we could make a lineplot
+    to see how the sentiment changed over the chapters with the NLP solutions, we could not achieve the same result with our grep solutions
+    because the data was structured differently. Our grep data for the entities just had one key, namely 'propn' and the sentiments, as they're usually
+    adjectives, we just had a key 'adj'. Therefore, when we visualised the grep results we could only use basic barplots and it only resulted in
+    information about the overall book sentiment and the count of the characters appearing in the book. While for the NLP data, we could also create a line
+    plot that showed how the sentiment for, for example 'positive' changed over time. In general, maybe this would have also been possible to do with our grep
+    results, but it would have been a lot more time-consuming and probably not as accurate.
 
 
 
