@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="686fc9a0-89e0-42da-ab0e-0e0f0671363f" name="Changes" comment="added part 4 txt file and feedback txt file">
+    <list default="true" id="686fc9a0-89e0-42da-ab0e-0e0f0671363f" name="Changes" comment="some plots">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DrJekyllAndMrHyde_Sentiment.json" beforeDir="false" afterPath="$PROJECT_DIR$/DrJekyllAndMrHyde_Sentiment.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Part2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Part2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Part3.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Part3.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dracula_Sentiment.json" beforeDir="false" afterPath="$PROJECT_DIR$/dracula_Sentiment.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frankenstein_Sentiment.json" beforeDir="false" afterPath="$PROJECT_DIR$/frankenstein_Sentiment.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +81,7 @@
       <option name="presentableId" value="Default" />
       <updated>1702039057040</updated>
       <workItem from="1703416018417" duration="1445000" />
-      <workItem from="1703495991426" duration="9631000" />
+      <workItem from="1703495991426" duration="17027000" />
     </task>
     <task id="LOCAL-00001" summary="Added some comments and doc strings and should be possible to get the text without /n">
       <created>1702119861020</created>
@@ -249,7 +245,31 @@
       <option name="project" value="LOCAL" />
       <updated>1703417142777</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="part2 should correctly make a json file with sentiments over each chapter (not sentence like previously) and computes the sentiments over the chapters per character and also the sentiment of the entire book. &#10;The filed {book_name}_Sentiment.json should be correct too. &#10;I added two plots for part 3, a boxplot where you can visualise the sentiment of the entire book, it shows the score of each sentiment. The other one is a lineplot that visualises the change of one specific sentiment of a specific character over the chapters of the book. you can see how this specific sentiment changes over time in the chapters the character appears.">
+      <option name="closed" value="true" />
+      <created>1703530715337</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1703530715338</updated>
+    </task>
+    <task id="LOCAL-00025" summary="almost completed, visualisation 2">
+      <option name="closed" value="true" />
+      <created>1703550856209</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1703550856209</updated>
+    </task>
+    <task id="LOCAL-00026" summary="some plots">
+      <option name="closed" value="true" />
+      <created>1703550893855</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1703550893855</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -280,6 +300,20 @@
     <MESSAGE value="should work for all entities now" />
     <MESSAGE value="should compute aggregated scores for the entire book now" />
     <MESSAGE value="added part 4 txt file and feedback txt file" />
-    <option name="LAST_COMMIT_MESSAGE" value="added part 4 txt file and feedback txt file" />
+    <MESSAGE value="part2 should correctly make a json file with sentiments over each chapter (not sentence like previously) and computes the sentiments over the chapters per character and also the sentiment of the entire book. &#10;The filed {book_name}_Sentiment.json should be correct too. &#10;I added two plots for part 3, a boxplot where you can visualise the sentiment of the entire book, it shows the score of each sentiment. The other one is a lineplot that visualises the change of one specific sentiment of a specific character over the chapters of the book. you can see how this specific sentiment changes over time in the chapters the character appears." />
+    <MESSAGE value="almost completed, visualisation 2" />
+    <MESSAGE value="some plots" />
+    <option name="LAST_COMMIT_MESSAGE" value="some plots" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="jupyter-line">
+          <url>notebook://C:/Users/marie/Documents/HS2023/PCL1/project_pcl_mturra_marikes/Part3.ipynb</url>
+          <line>43</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
