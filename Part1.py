@@ -12,9 +12,8 @@ import nltk
 # --- You may add other imports here ---
 
 
-# TODO: Load the spaCy model
-# TODO: Load the book text
 
+# When creating the JSON strings, we had some issues with our custom class objects, which were resolved by using this CustomEncoder 
 class CustomEncoder(json.JSONEncoder):
     """
     JSONEncoder subclass that leverages an object's `__json__()` method,
@@ -30,7 +29,8 @@ class CustomEncoder(json.JSONEncoder):
             return obj.__json__()
         return json.JSONEncoder.default(self, obj)
 
-
+# We used three custom classes to improve readibility. We can also these class objects to easily structure the data in the JSOn file
+# because we already defined in what relation these classes interact (e.g. a Position object is put into a Occurrence object) 
 class Position:
     """
     Custom class for position of occurrence
@@ -94,7 +94,8 @@ class NamedBookEntity:
         """
         return {'name': self.name, 'aliases': self.aliases, 'Occurrences': self.occurrences}
 
-
+# We didnt manage to implement a dynamic alias identification algorithm (e.g. with tf-idf) so we 
+# have to generate a static list of aliases depeing on which book is called
 def get_entities_from_book(booktitle:str) -> list[NamedBookEntity]:
     """
         Creates entities for a specific book
@@ -132,10 +133,12 @@ def get_entities_from_book(booktitle:str) -> list[NamedBookEntity]:
              ]
         )
     elif (booktitle == "frankenstein"):
+        # frankenstein is a peculiar case, becuase the monster has many different names in the books. We did some research and used a collection of those 
+        # we had found as aliases for it 
         entities.extend(
             [NamedBookEntity("Victor Frankenstein", ["Victor"], list()),
              NamedBookEntity("The Monster", [
-                             "monster", "Monster", "fiend", "wretch", "Wretch", "vile insect", "abhorred monster", "wrteched devil", "abhorred devil"], list()),
+                             "monster", "Monster", "fiend", "wretch", "Wretch", "vile insect", "abhorred monster", "wretched devil", "abhorred devil"], list()),
              NamedBookEntity("Robert Walton", [
                              "seafarer", "Walton", "Robert", "Robert Walton"], list()),
              NamedBookEntity(
@@ -167,7 +170,8 @@ def read_text_from_path(path: str) -> str:
 
 # Function to process the text and perform NER
 
-
+# Pretty cookie cutter NER; we generate a new doc from the chapter text and discard all non-PERSON labelled
+# entities
 def perform_ner(text: str, spacy_model: spacy.language.Language) -> list[spacy.ent]:
     """
     Create spacy.doc from chapter text and extract all PERSON labelled entities
@@ -177,6 +181,7 @@ def perform_ner(text: str, spacy_model: spacy.language.Language) -> list[spacy.e
     # return all PERSON labelled entites
     return [ent for ent in doc.ents if ent.label_ == "PERSON"]
 
+# Here we used the spacy doc ent from each chapter to add all relevant occurrences to the NamedBookEntity object of the character
 
 # Function to extract and structure entity information
 def extract_entity_info(entities_spacy: list[spacy.ent], entities_model: list[NamedBookEntity], chapter: str) -> list[NamedBookEntity]:
@@ -200,6 +205,9 @@ def extract_entity_info(entities_spacy: list[spacy.ent], entities_model: list[Na
                 )
     return entities_model
 
+# This wouldnt work for the longest time. We would always get the same results as the standard spacy NER ruler.
+# In the end, the reason was formatting error when appending the aliases to the patterns list.
+# We are again using all aliases in our NamedBookEntity object and add them as pattern to the entity ruler    
 
 def set_up_spacy(nlp:Language, entity_model:NamedBookEntity) -> Language:
     """
@@ -238,14 +246,14 @@ def set_up_spacy(nlp:Language, entity_model:NamedBookEntity) -> Language:
     # Return  pipeline with new entity ruler component.
     return nlp
 
-
+# Every book is stored in a separate txt file in the same folder
 def get_list_of_filenames(folderpath:str) -> list[str]:
     """
     Loads books from provided folder by splitting file names of .txts
     """
     # initialise empty files list
     files = list()
-    # get directory from argument
+    # get directory from path
     directory = os.fsencode(folderpath)
     # loop through directory
     for file in os.listdir(directory):
@@ -258,7 +266,9 @@ def get_list_of_filenames(folderpath:str) -> list[str]:
 
 # Function to save data to JSON file
 
-
+# As explained above, because we used our own Class objects, we ran into some troubles when creating the JSON file
+# so we had to put some effort into seralising our class objects. This wasn't as complicated as we feared it would be
+# and we are quite happy with the result.
 def save_to_json(data:list[NamedBookEntity], filename:str):
     """
     Saves entity data to json file using CustomEncoder to encode the customs classes
@@ -268,10 +278,13 @@ def save_to_json(data:list[NamedBookEntity], filename:str):
     # write data to json file
     with open(filename, "w", encoding='utf-8') as jsonfile:
         json.dump(json_data, jsonfile, ensure_ascii=False)
-    # return fuckall
+    # return fuck all
     return
 
-
+# We iterate through all our books and create the NER files all entitites defined in our static list.
+# A dynamic solution would have been much cooler, but given time constraints and lack of coverage in 
+# the lectures, this could only have been implemented with heavy ChatGPT support, which is not really
+# the purpose of this exercise. 
 # Main Function
 def main():
     # Load list of books from folder
